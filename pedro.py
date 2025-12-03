@@ -1,3 +1,6 @@
+def chr(n):
+    return "\n"
+
 def avaliarServico(estadoPedido, totalPedidos):
     if estadoPedido[totalPedidos] == "estado concluído":
         print("Poderia dar uma nota para avaliar o serviço que foi prestado? (Rating 1-5)")
