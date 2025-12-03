@@ -1,9 +1,9 @@
 def chr(n):
     return "\n"
-def adicionarMorada(c3, carrinhos):
+def adicionarMorada(c, carrinhos):
     print("Por fim digite a morada: ")
     morada = input()
-    carrinhos[c3] = morada
+    carrinhos[c] = morada
     
     return morada
 
