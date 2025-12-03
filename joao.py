@@ -1,3 +1,6 @@
+def chr(n):
+    return "\n"
+
 def atualizarEstado(n, estado, estadoEncomenda, tempIE, tempFE):
     estadosEncomendas()
     while True:    #This simulates a Do Loop
