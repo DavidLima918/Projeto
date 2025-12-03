@@ -4,7 +4,7 @@ def adicionarMorada(c, carrinhos):
     print("Por fim digite a morada: ")
     morada = input()
     carrinhos[c] = morada
-    
+    print "2"    
     return morada
 
 def aprovarReprovarEncomenda(encomenda, zonas, i, aprov):
