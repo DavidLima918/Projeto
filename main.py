@@ -8,14 +8,14 @@ with open("encomenda.csv", mode="w", newline="", encoding="utf-8") as file:
 def chr(n):
     return "\n"
 
-def gestaoPedidos():
-    def avaliarServico(estadoPedido, totalPedidos):
+def gestaoPedidos(): #Função principal de gestão de pedidos
+    def avaliarServico(estadoPedido, totalPedidos): #Função de avaliação do serviço
         print("Deseja avaliar qual pedido?")
         totalPedidos = int(input())
         if estadoPedido[totalPedidos - 1] == "estado concluído":
             print("Poderia dar uma nota para avaliar o serviço que foi prestado? (Rating 1-5)")
             rating = int(input())
-            while rating < 0 and rating > 6:
+            while rating < 0 and rating > 6: #Verificação de input entre 1 a 5
                 print("A nota que o utilizador atribuiu não está disponível. Tente novamente de 1 a 5.")
                 rating = int(input())
             print("Poderia colocar um comentário ao serviço?")
@@ -24,7 +24,7 @@ def gestaoPedidos():
         else:
             print("O seu pedido ainda não foi concluído!")
 
-    def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido):
+    def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido): #Função de criação de pedidos
         print("Para começar deve escrever qual é a origem do pedido:")
         elementosPedidos[0] = input()
         print("Agora, introduza o destino do pedido.")
@@ -33,7 +33,7 @@ def gestaoPedidos():
         elementosPedidos[2] = input()
         print("Por fim, deve introduzir a descrição com os itens do seu pedido.")
         elementosPedidos[3] = input()
-        if elementosPedidos[0] != "" and elementosPedidos[1] != "" and elementosPedidos[2] != "" and elementosPedidos[3] != "":
+        if elementosPedidos[0] != "" and elementosPedidos[1] != "" and elementosPedidos[2] != "" and elementosPedidos[3] != "": #Verificação de inputs obrigatórios
             print("O seu pedido foi criado.")
             print("Com o pedido criado, deve informar qual é a data do pedido;")
             elementosPedidos[4] = input()
@@ -44,17 +44,17 @@ def gestaoPedidos():
             estadoPedido[totalPedidos] = elementosPedidos[5]
             print("Obrigado! O seu pedido encontra-se no estado pendente!")
             pedidos[totalPedidos] = elementosPedidos[0] + ";" + elementosPedidos[1] + ";" + elementosPedidos[2] + ";" + elementosPedidos[3] + ";" + elementosPedidos[4] + ";" + elementosPedidos[5]
-        else:
+        else: #caso algum dos dados obrigatórios não seja preenchido
             print("O seu pedido não foi criado. Algum dos dados obrigatórios não foi corretamente preenchido, com isso, deve recomeçar o seu novo pedido.")
             pedidos[totalPedidos] = ""
 
-    def trackingBasico(estadoPedido, totalPedidos):
+    def trackingBasico(estadoPedido, totalPedidos): #Função de tracking básico
         print("Deseja ver o Tracking Básico de qual pedido?")
         totalPedidos = int(input())
         totalPedidos = totalPedidos - 1
-        if estadoPedido[totalPedidos] == "estado pendente":
+        if estadoPedido[totalPedidos] == "estado pendente": 
             print("O pedido encontra-se no estado pendente. Analisando os últimos detalhes.")
-            estadoPedido[totalPedidos] = "estado enviado"
+            estadoPedido[totalPedidos] = "estado enviado" 
             print("O seu pedido já foi enviado!")
             estadoPedido[totalPedidos] = "estado entregue"
             print("O seu pedido já foi entregue!")
@@ -72,7 +72,7 @@ def gestaoPedidos():
                     estadoPedido[totalPedidos] = "estado concluído"
                     print("O pedido já foi entregue. Encontra-se finalizado!")
 
-    def verPedidos(pedidos, totalPedidos):
+    def verPedidos(pedidos, totalPedidos): #Função de visualização de pedidos
         print("Qual é o pedido que deseja ver?")
         totalPedidos = int(input())
         print(pedidos[totalPedidos - 1])
@@ -84,14 +84,14 @@ def gestaoPedidos():
     elementosPedidos = [""] * (6)
 
     totalPedidos = 0
-    print("Para começar indique o seu o nome:")
+    print("Para começar indique o seu o nome:") #Guardar o nome do utilizador
     nome[totalPedidos] = input()
-    while True:    #This simulates a Do Loop
+    while True:    #This simulates a Do Loop do menu do sistema de gestão de pedidos
         print("Menu:" + chr(13) + "1 - Ver catálogo" + chr(13) + "2 - Criar Pedidos" + chr(13) + "3 - Ver Pedidos" + chr(13) + "4 - Tracking Básico" + chr(13) + "5 - Avaliar Serviço" + chr(13) + "6 - Sair")
         a = int(input())
         if a == 1:
             listaCatalogo(produtos, numProdutos, produto)
-        else:
+        else: 
             if a == 2:
                 criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
                 totalPedidos = totalPedidos + 1
@@ -107,7 +107,7 @@ def gestaoPedidos():
         if a == 6: break
 
 
-def açoC(produtos, produto):
+def açoC(produtos, produto): #Função de criação do produto aço carbono
     produto[0] = "" + str(1)
     produto[1] = "Aço Carbono"
     produto[2] = "Bobina em Aço Carbono"
@@ -116,16 +116,16 @@ def açoC(produtos, produto):
     produto[5] = "" + str(10)
     produtos[0] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def alterarDados(produtos, numProdutos, produto, cat):
+def alterarDados(produtos, numProdutos, produto, cat): #Função de alteração de dados dos produtos
     print("Indique o ID do produto que pretende alterar")
     while True:    #This simulates a Do Loop
         p = int(input())
         if p > 0: break
     p = p - 1
-    if p < 0 or p >= numProdutos:
+    if p < 0 or p >= numProdutos: #Verificação de id
         print("ID inválido")
         return
-    carregarProduto(produto, produtos, p)
+    carregarProduto(produto, produtos, p) #chamada da função de carregarProduto
     print("Qual é o dado que pretende alterar?" + chr(13) + "1 - Nome" + chr(13) + "2 - Descrição" + chr(13) + "3 - Categoria" + chr(13) + "4 - Preço" + chr(13) + "5 - Stock")
     opcaoad = int(input())
     if opcaoad == 1:
@@ -163,7 +163,7 @@ def alterarDados(produtos, numProdutos, produto, cat):
                         produto[opcaoad] = str(stock)
                         produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[opcaoad] + "x"
 
-def alum(produtos, produto):
+def alum(produtos, produto): #Função de criação do produto alumínio
     produto[0] = "" + str(2)
     produto[1] = "Alumínio"
     produto[2] = "Perfis de Alumínio"
@@ -172,7 +172,7 @@ def alum(produtos, produto):
     produto[5] = "" + str(10)
     produtos[1] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def azulejo(produtos, produto):
+def azulejo(produtos, produto): #Função de criação do produto azulejo
     produto[0] = "" + str(9)
     produto[1] = "Azulejo"
     produto[2] = "Azulejo"
@@ -181,7 +181,7 @@ def azulejo(produtos, produto):
     produto[5] = "" + str(100)
     produtos[8] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def carregarProduto(produto, produtos, p):
+def carregarProduto(produto, produtos, p): #Função de carregamento do produto
     parts = produtos[p].split(";")
     produto[0] = parts[0][3:]  # remove "ID:"
     produto[1] = parts[1]
@@ -190,12 +190,12 @@ def carregarProduto(produto, produtos, p):
     produto[4] = parts[4][:-1]  # remove "€"
     produto[5] = parts[5][:-1]  # remove "x"
 
-def criarRegisto(produto, cat):
+def criarRegisto(produto, cat): #Função de criação do registo do produto
     print("Indique o ID do produto")
     while True:    #This simulates a Do Loop
         id = int(input())
         if id > 0: break
-    produto[0] = str(id)
+    produto[0] = str(id) 
     print("Indique o nome do produto")
     nome = input()
     produto[1] = nome
@@ -203,27 +203,27 @@ def criarRegisto(produto, cat):
     descricao = input()
     produto[2] = descricao
     print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
-    while True:    #This simulates a Do Loop
+    while True:    #This simulates a Do Loop para verificação da categoria
         categoria = int(input())
         if categoria > 0 and categoria <= 3: break
     produto[3] = cat[categoria - 1]
     print("Indique o preço do produto")
-    while True:    #This simulates a Do Loop
+    while True:    #This simulates a Do Loop para verificação do preço
         preco = float(input())
         if preco > 0: break
     produto[4] = str(preco)
     print("Indique a quantidade de stock")
-    while True:    #This simulates a Do Loop
+    while True:    #This simulates a Do Loop para verificação do stock
         stock = int(input())
         if stock > 0: break
     produto[5] = str(stock)
 
-def diciCat(cat):
+def diciCat(cat): #Função de dicionário de categorias
     cat[0] = "metálico"
     cat[1] = "cerâmico"
     cat[2] = "polimérico"
 
-def ferro(produtos, produto):
+def ferro(produtos, produto): #Função de criação do produto ferro
     produto[0] = "" + str(3)
     produto[1] = "Ferro"
     produto[2] = "Vigas de Ferro"
@@ -232,16 +232,16 @@ def ferro(produtos, produto):
     produto[5] = "" + str(10)
     produtos[2] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def listaCatalogo(produtos, numProdutos, produto):
+def listaCatalogo(produtos, numProdutos, produto): #Função de listagem do catálogo
     print("Catálogo")
     for i in range(1, numProdutos + 1, 1):
         print(produtos[i - 1])
-    zerarProduto(produto)
+    zerarProduto(produto) #Chamada da função de zerarProduto
 
-def mostraMenuPrincipal():
+def mostraMenuPrincipal(): #Função de menu principal da gestão de produtos
     print("1 - Listar Catálogo " + chr(13) + "2 - Registar Produto" + chr(13) + "3 - Alterar dados" + chr(13) + "4 - Sair")
 
-def polietileno(produtos, produto):
+def polietileno(produtos, produto): #Função de criação do produto polietileno
     produto[0] = "" + str(5)
     produto[1] = "Polietileno"
     produto[2] = "Folha de Polietileno"
@@ -250,7 +250,7 @@ def polietileno(produtos, produto):
     produto[5] = "" + str(10)
     produtos[4] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def polipropileno(produtos, produto):
+def polipropileno(produtos, produto): #Função de criação do produto polipropileno
     produto[0] = "" + str(6)
     produto[1] = "Polipropileno"
     produto[2] = "Barras de Polipropileno"
@@ -259,7 +259,7 @@ def polipropileno(produtos, produto):
     produto[5] = "" + str(10)
     produtos[5] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def produtosBase(produtos, produto):
+def produtosBase(produtos, produto): #Função de criação dos produtos base
     açoC(produtos, produto)
     alum(produtos, produto)
     ferro(produtos, produto)
@@ -270,7 +270,7 @@ def produtosBase(produtos, produto):
     telha(produtos, produto)
     azulejo(produtos, produto)
 
-def pvc(produtos, produto):
+def pvc(produtos, produto): #Função de criação do produto pvc
     produto[0] = "" + str(4)
     produto[1] = "PVC"
     produto[2] = "Tubo de PVC"
@@ -279,10 +279,10 @@ def pvc(produtos, produto):
     produto[5] = "" + str(10)
     produtos[3] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def registaProdutos(produto, produtos, numProdutos):
+def registaProdutos(produto, produtos, numProdutos): #Função de criação de registo dos produtos
     produtos[numProdutos] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def telha(produtos, produto):
+def telha(produtos, produto): #Função de criação do produto telha
     produto[0] = "" + str(8)
     produto[1] = "Telha"
     produto[2] = "Telha cerâmica"
@@ -291,7 +291,7 @@ def telha(produtos, produto):
     produto[5] = "" + str(100)
     produtos[7] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def tijolo(produtos, produto):
+def tijolo(produtos, produto): #Função de criação do produto tijolo
     produto[0] = "" + str(7)
     produto[1] = "Tijolo"
     produto[2] = "Tijolo maciço"
@@ -300,18 +300,18 @@ def tijolo(produtos, produto):
     produto[5] = "" + str(100)
     produtos[6] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
 
-def zerarProduto(produto):
+def zerarProduto(produto): #Função para esvaziar o array produto
     for i in range(0, 5 + 1, 1):
         produto[i] = ""
 
-def zerarProdutos(produtos):
+def zerarProdutos(produtos): #Função para esvaziar o array produtos
     for i in range(0, 19 + 1, 1):
         produtos[i] = ""
 
 # Main
 opcao = 0
 produto = [""] * (6)
-produtos = [""] * (20)
+produtos = [""] * (20) #Array da lista de produtos
 
 numProdutos = 9
 cat = [""] * (3)
@@ -320,17 +320,17 @@ diciCat(cat)
 zerarProdutos(produtos)
 produtosBase(produtos, produto)
 
-def gestaoEncomendas():
-    def adicionarMorada(c, carrinhos):
+def gestaoEncomendas(): #Função principal de gestão de encomendas
+    def adicionarMorada(c, carrinhos): #Função de adicionar morada ao carrinho
         print("Por fim digite a morada: ")
         morada = input()
         carrinhos[c] = morada
         
         return morada
 
-    def aprovarReprovarEncomenda(encomenda, zonas, i, aprov):
+    def aprovarReprovarEncomenda(encomenda, zonas, i, aprov): #Função de aprovação ou reprovação da encomenda
         mostrarEncomendas(i, encomenda)
-        while True:    #This simulates a Do Loop
+        while True:    #This simulates a Do Loop para verificar do numero da encomenda
             print("Qual é a encomenda que deseja verificar ?")
             numEn3 = int(input())
             numEn3 = numEn3 - 1
@@ -338,7 +338,7 @@ def gestaoEncomendas():
         print(encomenda[numEn3])
         print("Aprovada - 1" + chr(13) + "Reprovada - 2")
         aprov1 = int(input())
-        while aprov1 != 1 and aprov1 != 2:
+        while aprov1 != 1 and aprov1 != 2: #Verificação do input
             print("Numero invalido")
             print("Aprovada - 1" + chr(13) + "Reprovada - 2")
             aprov1 = int(input())
@@ -347,7 +347,7 @@ def gestaoEncomendas():
         else:
             aprov[numEn3] = "Reprovada"
 
-    def atribuirZona(encomenda, zonas, estafetas):
+    def atribuirZona(encomenda, zonas, estafetas): #Função para atribuir de zona e estafeta
         estafeta = [""] * (5)
 
         estafeta[0] = "Rui Pereira / Norte"
@@ -355,7 +355,7 @@ def gestaoEncomendas():
         estafeta[2] = "Andereia Gonsalves / Centro"
         estafeta[3] = "Pedro Faria / Centro"
         estafeta[4] = "Simão Moreira / Sul"
-        while True:    #This simulates a Do Loop
+        while True:    #This simulates a Do Loop para verificar do numero da encomenda
             print("Qual é a encomenda que vai atribuir a zona e estafeta?")
             numEn2 = int(input())
             numEn2 = numEn2 - 1
@@ -363,7 +363,7 @@ def gestaoEncomendas():
         print(encomenda[numEn2])
         print("Introduza a zona em que a morada se encontra: " + chr(13) + "Norte - 1" + chr(13) + "Centro - 2" + chr(13) + "Sul - 3")
         zona = int(input())
-        while zona != 1 and zona != 2 and zona != 3:
+        while zona != 1 and zona != 2 and zona != 3: #Verificação do input
             print("Numero invalido")
             print("Introduza a zona em que a morada se encontra: " + chr(13) + "Norte - 1" + chr(13) + "Centro - 2" + chr(13) + "Sul - 3")
             zona = int(input())
@@ -376,7 +376,7 @@ def gestaoEncomendas():
                 zonas[numEn2] = "Sul"
         print("Agora introduza o estafeta" + chr(13) + "Estafetas: " + estafeta[0] + " -1" + chr(13) + estafeta[1] + " -2" + chr(13) + estafeta[2] + " -3" + chr(13) + estafeta[3] + " -4" + chr(13) + estafeta[4] + " -5")
         numEsta = int(input())
-        while numEsta != 1 and numEsta != 2 and numEsta != 3 and numEsta != 4 and numEsta != 5:
+        while numEsta != 1 and numEsta != 2 and numEsta != 3 and numEsta != 4 and numEsta != 5: #Verificação do input
             print("Numero invalido")
             print("Estafetas: " + estafeta[0] + " -1" + chr(13) + estafeta[1] + chr(13) + " -2" + estafeta[2] + chr(13) + " -3" + estafeta[3] + chr(13) + " -4" + estafeta[4] + " -5")
             numEsta = int(input())
@@ -394,64 +394,64 @@ def gestaoEncomendas():
                     else:
                         estafetas[numEn2] = "Simão Moreira"
 
-    def criarCarrinho(carrinho, carrinhos, c):
+    def criarCarrinho(carrinho, carrinhos, c): #Função de criação do carrinho
         lista = 0
-        while True:    #This simulates a Do Loop
+        while True:    #This simulates a Do Loop para adicionar produtos ao carrinho
             print("Qual o produto que sejá adquirir??")
             carrinho[0] = input()
             print("Agora qual a quantidade??")
             carrinho[1] = input()
             carrinhos[c] = carrinho[0] + " " + carrinho[1]
             c = c + 1
-            print("Quer adicionar mais produtos a sua compra??" + chr(13) + "2 - para continuar" + chr(13) + "3 - para parar")
-            pararCicloCompras = int(input())
-            if pararCicloCompras == 2:
-                continuarCompras = True
+            print("Quer adicionar mais produtos a sua compra??" + chr(13) + "2 - para continuar" + chr(13) + "3 - para parar") 
+            pararCicloCompras = int(input()) 
+            if pararCicloCompras == 2: 
+                continuarCompras = True         #ciclo para continuar ou não as compras
             else:
                 continuarCompras = False
-            if continuarCompras != True or c >= 10: break
+            if continuarCompras != True or c >= 10: break 
         if c == 10:
             print("Maximo de produtos atingido no carrinho, finali-se a compra")
-        adicionarMorada(c, carrinhos)
+        adicionarMorada(c, carrinhos) #Chamada da função de adicionar morada ao carrinho
 
-    def editarEncomenda(encomenda):
-        while True:    #This simulates a Do Loop
+    def editarEncomenda(encomenda): #Função de edição da encomenda
+        while True:    #This simulates a Do Loop para verificar do numero da encomenda
             print("Qual o numeiro da encomenda ?")
             numEn = int(input())
             numEn = numEn - 1
             if numEn > -1 and numEn <= 11: break
         print(encomenda[numEn])
-        print("Agora pode editar a encomenda.")
+        print("Agora pode editar a encomenda.") 
         encomenda[numEn] = input()
 
-    def encomendas(carrinhos, c, encomenda, i):
+    def encomendas(carrinhos, c, encomenda, i): #Função de organizar o carrinho na encomenda
         encomenda[i] = carrinhos[0] + " ; " + carrinhos[1] + " ; " + carrinhos[2] + " ; " + carrinhos[3] + " ; " + carrinhos[4] + " ; " + carrinhos[5] + " ; " + carrinhos[6] + " ; " + carrinhos[7] + " ; " + carrinhos[8] + " ; " + carrinhos[9] + " ; " + carrinhos[10]
 
-    def limparArrays(zonas, encomenda, estafetas, aprov):
+    def limparArrays(zonas, encomenda, estafetas, aprov): #Função para limpar os arrays
         for y in range(0, 10 + 1, 1):
             zonas[y] = " "
             encomenda[y] = " "
             estafetas[y] = " "
             aprov[y] = " "
 
-    def mostrarEncomendas(i, encomenda):
+    def mostrarEncomendas(i, encomenda): #Função de mostrar encomendas
         lista = 0
         while lista < i:
             print("Encomenda 1: " + encomenda[lista])
             lista = lista + 1
 
-    def mostrarZonas(estafetas, zonas, encomenda):
+    def mostrarZonas(estafetas, zonas, encomenda): #Função filtrar encomendas por zona
         contN = 0
         print("Qual é a zona que quer procurar encomendas?")
         print("1 - Norte" + chr(13) + "2 - Centro" + chr(13) + "3 - Sul")
         numZonaEncomenda = int(input())
-        while numZonaEncomenda != 1 and numZonaEncomenda != 2 and numZonaEncomenda != 3: #Verificação de input
+        while numZonaEncomenda != 1 and numZonaEncomenda != 2 and numZonaEncomenda != 3: #Verificação de input 
             print("Numero invalido")
             print("1 - Norte" + chr(13) + "2 - Centro" + chr(13) + "3 - Sul")
             numZonaEncomenda = int(input())
         if numZonaEncomenda == 1: #Dar ao numero um nome
             encontrar = "Norte"
-            for x in range(0, 10 + 1, 1):
+            for x in range(0, 10 + 1, 1): #Loop para procurar encomendas na zona norte
                 if zonas[x] == encontrar:
                     print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: 5" + zonas[x])
                 else:
@@ -459,14 +459,14 @@ def gestaoEncomendas():
         else:
             if numZonaEncomenda == 2:
                 encontrar = "Centro"
-                for x in range(0, 10 + 1, 1):
+                for x in range(0, 10 + 1, 1): #Loop para procurar encomendas na zona centro
                     if zonas[x] == encontrar:
                         print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
                     else:
                         contN = contN + 1
             else:
                 encontrar = "Sul"
-                for x in range(0, 10 + 1, 1):
+                for x in range(0, 10 + 1, 1): #Loop para procurar encomendas na zona sul
                     if zonas[x] == encontrar:
                         print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
                     else:
@@ -474,7 +474,7 @@ def gestaoEncomendas():
         if contN == 11:
             print("Nenhuma encomenda encontrada nessa zona")
 
-    # Main
+    # Main do gestaoEncomendas
     carrinhos = [""] * (11)
     zonas = [""] * (11)
     carrinho = [""] * (2)
@@ -484,7 +484,7 @@ def gestaoEncomendas():
 
     c = 0
     i = 0
-    limparArrays(zonas, encomenda, estafetas, aprov)
+    limparArrays(zonas, encomenda, estafetas, aprov) #Chamada da função de limpar arrays
     while True:    #This simulates a Do Loop
         for z in range(0, 10 + 1, 1):
             carrinhos[z] = " "
