@@ -488,7 +488,7 @@ def gestaoEncomendas():
     while True:    #This simulates a Do Loop
         for z in range(0, 10 + 1, 1):
             carrinhos[z] = " "
-        print("Menu: " + chr(13) + "1 - Criar encomenda" + chr(13) + "2 - Modificar encomenda" + chr(13) + "3 - Atribuir zona" + chr(13) + "4 - Aprovar ou reprovar encomendas" + chr(13) + "5 - Filtrar encomendas" + "\n" + "6 - Sair")
+        print("Menu: " + chr(13) + "1 - Criar encomenda" + chr(13) + "2 - Modificar encomenda" + chr(13) + "3 - Atribuir zona" + chr(13) + "4 - Aprovar ou reprovar encomendas" + chr(13) + "5 - Filtrar encomendas" + "\n" + "6 - Lista de produtos" + "\n" + "7 - Sair")
         menu = int(input())
         if menu == 1:
             criarCarrinho(carrinho, carrinhos, c)
@@ -505,8 +505,11 @@ def gestaoEncomendas():
                         aprovarReprovarEncomenda(encomenda, zonas, i, aprov)
                     else:
                         if menu == 5:
-                            mostrarZonas(estafetas, zonas, encomenda)   
-        if menu == 6: break
+                            mostrarZonas(estafetas, zonas, encomenda) 
+                        else:
+                            if  menu == 6:
+                                listaCatalogo(produtos, numProdutos, produto)
+        if menu == 7: break
     # grava no CSV (colunas separadas por ';')
     with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter=';')
