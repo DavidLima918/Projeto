@@ -86,7 +86,7 @@ def gestaoPedidos():
     print("Olá, Bem-vindo! Para começar digite o seu o nome.")
     nome[totalPedidos] = input()
     while True:    #This simulates a Do Loop
-        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "0-Sair")
+        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "0 - Sair")
         a = int(input())
         if a == 1:
             criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
@@ -579,7 +579,7 @@ def estafeta():
             print(encomendas[i - 1])
 
     def menuEntregas():
-        print("Menu Entregas" + chr(13) + " 1 - Atualizar o estado da encomenda" + chr(13) + "2 - Reportar Anomalias" + chr(13) + "3 - Registar Localização" + chr(13) + "4 - Sair")
+        print("Menu Entregas" + chr(13) + "1 - Atualizar o estado da encomenda" + chr(13) + "2 - Reportar Anomalias" + chr(13) + "3 - Registar Localização" + chr(13) + "4 - Sair")
 
     def metricas(estadoEncomenda, numEncomendas, numESucedidas, tempIE, tempFE):
         taxaSucesso = 0
@@ -611,7 +611,7 @@ def estafeta():
                         registarLoc(n, locEncomenda, localizacoes)
 
     def mostraMenuPrincipal():
-        print("1 - Registar Encomenda " + chr(13) + "2 - Lista de Encomendas" + chr(13) + "3 - Atribuição de Encomendas" + chr(13) + "4 - Consulta de métricas Pessoais" + chr(13) + "5 - Sair")
+        print("1 - Lista de Encomendas" + chr(13) + "2 - Atribuição de Encomendas" + chr(13) + "3 - Consulta de métricas Pessoais" + chr(13) + "4 - Sair")
 
     def obtemDadosEncomenda(encomenda, numEncomendas):
         print("Digite o codigo para a encomenda " + str(numEncomendas + 1))
@@ -684,25 +684,19 @@ def estafeta():
     diciLocs(localizacoes)
     diciEstado(estado)
     opcao = 1
-    while opcao != 5:
+    while opcao != 4:
         mostraMenuPrincipal()
         opcao = int(input())
         if opcao == 1:
-            obtemDadosEncomenda(encomenda, numEncomendas)
-            registaEncomenda(encomendas, encomenda, numEncomendas)
-            numEncomendas = numEncomendas + 1
-            estadoEncomenda[numEncomendas - 1] = estado[0]
+            listaEncomendas(encomendas, numEncomendas)
         else:
             if opcao == 2:
-                listaEncomendas(encomendas, numEncomendas)
+                obtemEncomenda(n)
+                decisao(n, estado, estadoEncomenda, locEncomenda, localizacoes, tempIE, tempFE)
             else:
                 if opcao == 3:
-                    obtemEncomenda(n)
-                    decisao(n, estado, estadoEncomenda, locEncomenda, localizacoes, tempIE, tempFE)
-                else:
-                    if opcao == 4:
-                        metricas(estadoEncomenda, numEncomendas, numESucedidas, tempIE, tempFE)
-    
+                    metricas(estadoEncomenda, numEncomendas, numESucedidas, tempIE, tempFE)
+
 #Login Section
 
 while True:
