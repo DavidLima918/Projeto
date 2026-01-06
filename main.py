@@ -203,20 +203,24 @@ def estafeta():
 
 #Login Section
 
-print("Login")
-Username = input("Username: ")
-Password = input("Password: ")
-if Username == "admin" and Password == "admin":
-    print("Bem-vindo ao sistema de gestão" + "\n" + "1 - Stock" + "\n" + "2 - Encomendas" + "\n" + "3 - Estafeta")
-    opcao = int(input("Escolha uma opção: "))
-    if opcao == 1:
-        stock()
+while True:
+    print("Login")
+    Username = input("Username: ")
+    Password = input("Password: ")
+    if Username == "admin" and Password == "admin":
+        while True:
+            print("Bem-vindo ao sistema de gestão" + "\n" + "1 - Stock" + "\n" + "2 - Encomendas" + "\n" + "3 - Estafeta" + "\n" + "6 - Sair")
+            opcao = int(input("Escolha uma opção: "))
+            if opcao == 1:
+                stock()
+            else:
+                if opcao == 2:
+                    gestaoEncomendas()
+                else:
+                    if opcao == 3:
+                        estafeta()
+            if opcao == 6: break
     else:
-        if opcao == 2:
-            gestaoEncomendas()
+        if Username == "exit" or Password == "exit": break
         else:
-            if opcao == 3:
-                estafeta()
-else:
-    print("Bem-vindo ao nosso site")
-
+            print("Bem-vindo ao nosso site")
