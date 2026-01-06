@@ -134,7 +134,7 @@ def listaCatalogo(produtos, numProdutos, produto):
     zerarProduto(produto)
 
 def mostraMenuPrincipal():
-    print("1 - Listar Catálogo " + chr(13) + "2 - Registar Produto" + chr(13) + "3 - Alterar dados" + chr(13) + "4 - Gestão de stock" + chr(13) + "5 - Sair")
+    print("1 - Listar Catálogo " + chr(13) + "2 - Registar Produto" + chr(13) + "3 - Alterar dados" + chr(13) + "4 - Sair")
 
 def polietileno(produtos, produto):
     produto[0] = "" + str(5)
@@ -214,7 +214,7 @@ cat = [""] * (3)
 diciCat(cat)
 zerarProdutos(produtos)
 produtosBase(produtos, produto)
-while opcao != 5:
+while opcao != 4:
     mostraMenuPrincipal()
     opcao = int(input())
     if opcao == 1:
