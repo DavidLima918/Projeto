@@ -1,3 +1,9 @@
+import csv
+
+with open("encomenda.csv", mode="w", newline="", encoding="utf-8") as file:
+    writer = csv.writer(file, delimiter=';')
+    writer.writerows(["nome", "quantidade", "morada"])
+
 def chr(n):
     return "\n"
 
@@ -288,8 +294,12 @@ def gestaoEncomendas():
                         if menu == 5:
                             mostrarZonas(estafetas, zonas, encomenda)   
         if menu == 6: break
-
-
+    # grava no CSV (colunas separadas por ';')
+    with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file, delimiter=';')
+        for j in range(0, i):
+            if encomenda[j] == "" or encomenda[j] is None:
+                continue
 def estafeta():
     def atualizarEstado(n, estado, estadoEncomenda, tempIE, tempFE):
         estadosEncomendas()
