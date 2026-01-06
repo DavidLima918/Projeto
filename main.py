@@ -84,10 +84,10 @@ def gestaoPedidos():
     elementosPedidos = [""] * (6)
 
     totalPedidos = 0
-    print("Olá, Bem-vindo! Para começar digite o seu o nome.")
+    print("Para começar indique o seu o nome:")
     nome[totalPedidos] = input()
     while True:    #This simulates a Do Loop
-        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "0 - Sair")
+        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "5 - Sair")
         a = int(input())
         if a == 1:
             criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
@@ -101,7 +101,7 @@ def gestaoPedidos():
                 else:
                     if a == 4:
                         avaliarServico(estadoPedido, totalPedidos)
-        if a == 0: break
+        if a == 5: break
 
 def stock():
     def açoC(produtos, produto):
@@ -720,5 +720,5 @@ while True:
     else:
         if Username == "exit" or Password == "exit": break
         else:
-            print("Bem-vindo ao nosso site")
+            print("Olá bem-vindo ao site da Send2You!")
             gestaoPedidos()
