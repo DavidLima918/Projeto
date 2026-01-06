@@ -497,7 +497,7 @@ def gestaoEncomendas():
     while True:    #This simulates a Do Loop
         for z in range(0, 10 + 1, 1):
             carrinhos[z] = " "
-        print("Menu: " + chr(13) + "Criar encomenda - 1" + chr(13) + "Modificar encomenda - 2" + chr(13) + "Atribuir zona - 3" + chr(13) + "Aprovar ou reprovar encomendas - 4" + chr(13) + "Filtrar encomendas - 5" + "\n" + "Sair - 6")
+        print("Menu: " + chr(13) + "1 - Criar encomenda" + chr(13) + "2 - Modificar encomenda" + chr(13) + "3 - Atribuir zona" + chr(13) + "4 - Aprovar ou reprovar encomendas" + chr(13) + "5 - Filtrar encomendas" + "\n" + "6 - Sair")
         menu = int(input())
         if menu == 1:
             criarCarrinho(carrinho, carrinhos, c)
