@@ -1,3 +1,6 @@
+def chr(n):
+    return "\n"
+
 def avaliarServico(estadoPedido, totalPedidos):
     print("Deseja avaliar qual pedido?")
     totalPedidos = int(input())
