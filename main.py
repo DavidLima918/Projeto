@@ -77,10 +77,10 @@ def gestaoPedidos():
     elementosPedidos = [""] * (6)
 
     totalPedidos = 0
-    print("Olá, Bem-vindo! Para começar deve digitar o seu o nome da cliente.")
+    print("Olá, Bem-vindo! Para começar digite o seu o nome.")
     nome[totalPedidos] = input()
     while True:    #This simulates a Do Loop
-        print("Menu:" + chr(13) + "1-Criar Pedidos" + chr(13) + "2-Ver Pedidos" + chr(13) + "3-Tracking Básico" + chr(13) + "4-Avaliar Serviço" + chr(13) + "0-Sair")
+        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "0-Sair")
         a = int(input())
         if a == 1:
             criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
