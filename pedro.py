@@ -6,8 +6,9 @@ def avaliarServico(estadoPedido, totalPedidos):
     totalPedidos = int(input())
     if estadoPedido[totalPedidos - 1] == "estado concluído":
         print("Poderia dar uma nota para avaliar o serviço que foi prestado? (Rating 1-5)")
-        rating = int(input())
-        while rating < 0 and rating > 6:
+        while True:    #This simulates a Do Loop
+            rating = int(input())
+            if rating > 5 and rating < 0: break
             print("A nota que o utilizador atribuiu não está disponível. Tente novamente de 1 a 5.")
             rating = int(input())
         print("Poderia colocar um comentário ao serviço?")
@@ -27,7 +28,7 @@ def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido):
     elementosPedidos[3] = input()
     if elementosPedidos[0] != "" and elementosPedidos[1] != "" and elementosPedidos[2] != "" and elementosPedidos[3] != "":
         print("O seu pedido foi criado.")
-        print("Com o pedido criado, deve informar qual é a data do pedido;")
+        print("Com o pedido criado, deve informar qual é a data do pedido.(Formato DD/MM/AAAA)")
         elementosPedidos[4] = input()
         while elementosPedidos[4] == "":
             print("A data do pedido é obrigatória! Deve voltar a escrever a data!")
