@@ -87,248 +87,238 @@ def gestaoPedidos():
     print("Para começar indique o seu o nome:")
     nome[totalPedidos] = input()
     while True:    #This simulates a Do Loop
-        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "5 - Sair")
+        print("Menu:" + chr(13) + "1 - Ver catálogo" + chr(13) + "2 - Criar Pedidos" + chr(13) + "3 - Ver Pedidos" + chr(13) + "4 - Tracking Básico" + chr(13) + "5 - Avaliar Serviço" + chr(13) + "6 - Sair")
         a = int(input())
         if a == 1:
-            criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
-            totalPedidos = totalPedidos + 1
-        else:
-            if a == 2:
-                verPedidos(pedidos, totalPedidos)
-            else:
-                if a == 3:
-                    trackingBasico(estadoPedido, totalPedidos)
-                else:
-                    if a == 4:
-                        avaliarServico(estadoPedido, totalPedidos)
-        if a == 5: break
-
-def stock():
-    def açoC(produtos, produto):
-        produto[0] = "" + str(1)
-        produto[1] = "Aço Carbono"
-        produto[2] = "Bobina em Aço Carbono"
-        produto[3] = "Metálico"
-        produto[4] = "" + str(150)
-        produto[5] = "" + str(10)
-        produtos[0] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def alterarDados(produtos, numProdutos, produto, cat):
-        print("Indique o ID do produto que pretende alterar")
-        while True:    #This simulates a Do Loop
-            p = int(input())
-            if p > 0: break
-        p = p - 1
-        if p < 0 or p >= numProdutos:
-            print("ID inválido")
-            return
-        carregarProduto(produto, produtos, p)
-        print("Qual é o dado que pretende alterar?" + chr(13) + "1 - Nome" + chr(13) + "2 - Descrição" + chr(13) + "3 - Categoria" + chr(13) + "4 - Preço" + chr(13) + "5 - Stock")
-        opcaoad = int(input())
-        if opcaoad == 1:
-            nome = input()
-            produto[opcaoad] = nome
-            produtos[p] = "ID:" + produto[0] + ";" + produto[opcaoad] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-        else:
-            if opcaoad == 2:
-                descricao = input()
-                produto[opcaoad] = descricao
-                produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[opcaoad] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-            else:
-                if opcaoad == 3:
-                    print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
-                    while True:    #This simulates a Do Loop
-                        categoria = int(input())
-                        if categoria > 0 and categoria <= 3: break
-                    if categoria == 1:
-                        produto[opcaoad] = "Metálico"
-                    else:
-                        if categoria == 2:
-                            produto[opcaoad] = "Cerâmico"
-                        else:
-                            if categoria == 3:
-                                produto[opcaoad] = "Polimérico"
-                    produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[opcaoad] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-                else:
-                    if opcaoad == 4:
-                        preco = float(input())
-                        produto[opcaoad] = str(preco)
-                        produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[opcaoad] + "€" + ";" + produto[5] + "x"
-                    else:
-                        if opcaoad == 5:
-                            stock = int(input())
-                            produto[opcaoad] = str(stock)
-                            produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[opcaoad] + "x"
-
-    def alum(produtos, produto):
-        produto[0] = "" + str(2)
-        produto[1] = "Alumínio"
-        produto[2] = "Perfis de Alumínio"
-        produto[3] = "Metálico"
-        produto[4] = "" + str(200)
-        produto[5] = "" + str(10)
-        produtos[1] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def azulejo(produtos, produto):
-        produto[0] = "" + str(9)
-        produto[1] = "Azulejo"
-        produto[2] = "Azulejo"
-        produto[3] = "Cerâmico"
-        produto[4] = "" + str(3)
-        produto[5] = "" + str(100)
-        produtos[8] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def carregarProduto(produto, produtos, p):
-        parts = produtos[p].split(";")
-        produto[0] = parts[0][3:]  # remove "ID:"
-        produto[1] = parts[1]
-        produto[2] = parts[2]
-        produto[3] = parts[3]
-        produto[4] = parts[4][:-1]  # remove "€"
-        produto[5] = parts[5][:-1]  # remove "x"
-
-    def criarRegisto(produto, cat):
-        print("Indique o ID do produto")
-        while True:    #This simulates a Do Loop
-            id = int(input())
-            if id > 0: break
-        produto[0] = str(id)
-        print("Indique o nome do produto")
-        nome = input()
-        produto[1] = nome
-        print("Descreva brevemente o produto produto")
-        descricao = input()
-        produto[2] = descricao
-        print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
-        while True:    #This simulates a Do Loop
-            categoria = int(input())
-            if categoria > 0 and categoria <= 3: break
-        produto[3] = cat[categoria - 1]
-        print("Indique o preço do produto")
-        while True:    #This simulates a Do Loop
-            preco = float(input())
-            if preco > 0: break
-        produto[4] = str(preco)
-        print("Indique a quantidade de stock")
-        while True:    #This simulates a Do Loop
-            stock = int(input())
-            if stock > 0: break
-        produto[5] = str(stock)
-
-    def diciCat(cat):
-        cat[0] = "metálico"
-        cat[1] = "cerâmico"
-        cat[2] = "polimérico"
-
-    def ferro(produtos, produto):
-        produto[0] = "" + str(3)
-        produto[1] = "Ferro"
-        produto[2] = "Vigas de Ferro"
-        produto[3] = "Metálico"
-        produto[4] = "" + str(300)
-        produto[5] = "" + str(10)
-        produtos[2] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def listaCatalogo(produtos, numProdutos, produto):
-        print("Catálogo")
-        for i in range(1, numProdutos + 1, 1):
-            print(produtos[i - 1])
-        zerarProduto(produto)
-
-    def mostraMenuPrincipal():
-        print("1 - Listar Catálogo " + chr(13) + "2 - Registar Produto" + chr(13) + "3 - Alterar dados" + chr(13) + "4 - Sair")
-
-    def polietileno(produtos, produto):
-        produto[0] = "" + str(5)
-        produto[1] = "Polietileno"
-        produto[2] = "Folha de Polietileno"
-        produto[3] = "Polimérico"
-        produto[4] = "" + str(20)
-        produto[5] = "" + str(10)
-        produtos[4] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def polipropileno(produtos, produto):
-        produto[0] = "" + str(6)
-        produto[1] = "Polipropileno"
-        produto[2] = "Barras de Polipropileno"
-        produto[3] = "Polimérico"
-        produto[4] = "" + str(35)
-        produto[5] = "" + str(10)
-        produtos[5] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def produtosBase(produtos, produto):
-        açoC(produtos, produto)
-        alum(produtos, produto)
-        ferro(produtos, produto)
-        pvc(produtos, produto)
-        polietileno(produtos, produto)
-        polipropileno(produtos, produto)
-        tijolo(produtos, produto)
-        telha(produtos, produto)
-        azulejo(produtos, produto)
-
-    def pvc(produtos, produto):
-        produto[0] = "" + str(4)
-        produto[1] = "PVC"
-        produto[2] = "Tubo de PVC"
-        produto[3] = "Polimérico"
-        produto[4] = "" + str(20)
-        produto[5] = "" + str(10)
-        produtos[3] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def registaProdutos(produto, produtos, numProdutos):
-        produtos[numProdutos] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def telha(produtos, produto):
-        produto[0] = "" + str(8)
-        produto[1] = "Telha"
-        produto[2] = "Telha cerâmica"
-        produto[3] = "Cerâmico"
-        produto[4] = "" + str(2)
-        produto[5] = "" + str(100)
-        produtos[7] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def tijolo(produtos, produto):
-        produto[0] = "" + str(7)
-        produto[1] = "Tijolo"
-        produto[2] = "Tijolo maciço"
-        produto[3] = "Cerâmico"
-        produto[4] = "" + str(1)
-        produto[5] = "" + str(100)
-        produtos[6] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
-
-    def zerarProduto(produto):
-        for i in range(0, 5 + 1, 1):
-            produto[i] = ""
-
-    def zerarProdutos(produtos):
-        for i in range(0, 19 + 1, 1):
-            produtos[i] = ""
-
-    # Main
-    opcao = 0
-    produto = [""] * (6)
-    produtos = [""] * (20)
-
-    numProdutos = 9
-    cat = [""] * (3)
-
-    diciCat(cat)
-    zerarProdutos(produtos)
-    produtosBase(produtos, produto)
-    while opcao != 4:
-        mostraMenuPrincipal()
-        opcao = int(input())
-        if opcao == 1:
             listaCatalogo(produtos, numProdutos, produto)
         else:
-            if opcao == 2:
-                criarRegisto(produto, cat)
-                registaProdutos(produto, produtos, numProdutos)
-                numProdutos = numProdutos + 1
+            if a == 2:
+                criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
+                totalPedidos = totalPedidos + 1
             else:
-                if opcao == 3:
-                    alterarDados(produtos, numProdutos, produto, cat)
+                if a == 3:
+                    verPedidos(pedidos, totalPedidos)
+                else:
+                    if a == 4:
+                        trackingBasico(estadoPedido, totalPedidos)
+                    else:
+                        if a == 5:
+                                avaliarServico(estadoPedido, totalPedidos)
+        if a == 6: break
+
+
+def açoC(produtos, produto):
+    produto[0] = "" + str(1)
+    produto[1] = "Aço Carbono"
+    produto[2] = "Bobina em Aço Carbono"
+    produto[3] = "Metálico"
+    produto[4] = "" + str(150)
+    produto[5] = "" + str(10)
+    produtos[0] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def alterarDados(produtos, numProdutos, produto, cat):
+    print("Indique o ID do produto que pretende alterar")
+    while True:    #This simulates a Do Loop
+        p = int(input())
+        if p > 0: break
+    p = p - 1
+    if p < 0 or p >= numProdutos:
+        print("ID inválido")
+        return
+    carregarProduto(produto, produtos, p)
+    print("Qual é o dado que pretende alterar?" + chr(13) + "1 - Nome" + chr(13) + "2 - Descrição" + chr(13) + "3 - Categoria" + chr(13) + "4 - Preço" + chr(13) + "5 - Stock")
+    opcaoad = int(input())
+    if opcaoad == 1:
+        nome = input()
+        produto[opcaoad] = nome
+        produtos[p] = "ID:" + produto[0] + ";" + produto[opcaoad] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+    else:
+        if opcaoad == 2:
+            descricao = input()
+            produto[opcaoad] = descricao
+            produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[opcaoad] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+        else:
+            if opcaoad == 3:
+                print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
+                while True:    #This simulates a Do Loop
+                    categoria = int(input())
+                    if categoria > 0 and categoria <= 3: break
+                if categoria == 1:
+                    produto[opcaoad] = "Metálico"
+                else:
+                    if categoria == 2:
+                        produto[opcaoad] = "Cerâmico"
+                    else:
+                        if categoria == 3:
+                            produto[opcaoad] = "Polimérico"
+                produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[opcaoad] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+            else:
+                if opcaoad == 4:
+                    preco = float(input())
+                    produto[opcaoad] = str(preco)
+                    produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[opcaoad] + "€" + ";" + produto[5] + "x"
+                else:
+                    if opcaoad == 5:
+                        stock = int(input())
+                        produto[opcaoad] = str(stock)
+                        produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[opcaoad] + "x"
+
+def alum(produtos, produto):
+    produto[0] = "" + str(2)
+    produto[1] = "Alumínio"
+    produto[2] = "Perfis de Alumínio"
+    produto[3] = "Metálico"
+    produto[4] = "" + str(200)
+    produto[5] = "" + str(10)
+    produtos[1] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def azulejo(produtos, produto):
+    produto[0] = "" + str(9)
+    produto[1] = "Azulejo"
+    produto[2] = "Azulejo"
+    produto[3] = "Cerâmico"
+    produto[4] = "" + str(3)
+    produto[5] = "" + str(100)
+    produtos[8] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def carregarProduto(produto, produtos, p):
+    parts = produtos[p].split(";")
+    produto[0] = parts[0][3:]  # remove "ID:"
+    produto[1] = parts[1]
+    produto[2] = parts[2]
+    produto[3] = parts[3]
+    produto[4] = parts[4][:-1]  # remove "€"
+    produto[5] = parts[5][:-1]  # remove "x"
+
+def criarRegisto(produto, cat):
+    print("Indique o ID do produto")
+    while True:    #This simulates a Do Loop
+        id = int(input())
+        if id > 0: break
+    produto[0] = str(id)
+    print("Indique o nome do produto")
+    nome = input()
+    produto[1] = nome
+    print("Descreva brevemente o produto produto")
+    descricao = input()
+    produto[2] = descricao
+    print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
+    while True:    #This simulates a Do Loop
+        categoria = int(input())
+        if categoria > 0 and categoria <= 3: break
+    produto[3] = cat[categoria - 1]
+    print("Indique o preço do produto")
+    while True:    #This simulates a Do Loop
+        preco = float(input())
+        if preco > 0: break
+    produto[4] = str(preco)
+    print("Indique a quantidade de stock")
+    while True:    #This simulates a Do Loop
+        stock = int(input())
+        if stock > 0: break
+    produto[5] = str(stock)
+
+def diciCat(cat):
+    cat[0] = "metálico"
+    cat[1] = "cerâmico"
+    cat[2] = "polimérico"
+
+def ferro(produtos, produto):
+    produto[0] = "" + str(3)
+    produto[1] = "Ferro"
+    produto[2] = "Vigas de Ferro"
+    produto[3] = "Metálico"
+    produto[4] = "" + str(300)
+    produto[5] = "" + str(10)
+    produtos[2] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def listaCatalogo(produtos, numProdutos, produto):
+    print("Catálogo")
+    for i in range(1, numProdutos + 1, 1):
+        print(produtos[i - 1])
+    zerarProduto(produto)
+
+def mostraMenuPrincipal():
+    print("1 - Listar Catálogo " + chr(13) + "2 - Registar Produto" + chr(13) + "3 - Alterar dados" + chr(13) + "4 - Sair")
+
+def polietileno(produtos, produto):
+    produto[0] = "" + str(5)
+    produto[1] = "Polietileno"
+    produto[2] = "Folha de Polietileno"
+    produto[3] = "Polimérico"
+    produto[4] = "" + str(20)
+    produto[5] = "" + str(10)
+    produtos[4] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def polipropileno(produtos, produto):
+    produto[0] = "" + str(6)
+    produto[1] = "Polipropileno"
+    produto[2] = "Barras de Polipropileno"
+    produto[3] = "Polimérico"
+    produto[4] = "" + str(35)
+    produto[5] = "" + str(10)
+    produtos[5] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def produtosBase(produtos, produto):
+    açoC(produtos, produto)
+    alum(produtos, produto)
+    ferro(produtos, produto)
+    pvc(produtos, produto)
+    polietileno(produtos, produto)
+    polipropileno(produtos, produto)
+    tijolo(produtos, produto)
+    telha(produtos, produto)
+    azulejo(produtos, produto)
+
+def pvc(produtos, produto):
+    produto[0] = "" + str(4)
+    produto[1] = "PVC"
+    produto[2] = "Tubo de PVC"
+    produto[3] = "Polimérico"
+    produto[4] = "" + str(20)
+    produto[5] = "" + str(10)
+    produtos[3] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def registaProdutos(produto, produtos, numProdutos):
+    produtos[numProdutos] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def telha(produtos, produto):
+    produto[0] = "" + str(8)
+    produto[1] = "Telha"
+    produto[2] = "Telha cerâmica"
+    produto[3] = "Cerâmico"
+    produto[4] = "" + str(2)
+    produto[5] = "" + str(100)
+    produtos[7] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def tijolo(produtos, produto):
+    produto[0] = "" + str(7)
+    produto[1] = "Tijolo"
+    produto[2] = "Tijolo maciço"
+    produto[3] = "Cerâmico"
+    produto[4] = "" + str(1)
+    produto[5] = "" + str(100)
+    produtos[6] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def zerarProduto(produto):
+    for i in range(0, 5 + 1, 1):
+        produto[i] = ""
+
+def zerarProdutos(produtos):
+    for i in range(0, 19 + 1, 1):
+        produtos[i] = ""
+
+# Main
+opcao = 0
+produto = [""] * (6)
+produtos = [""] * (20)
+
+numProdutos = 9
+cat = [""] * (3)
+
+diciCat(cat)
+zerarProdutos(produtos)
+produtosBase(produtos, produto)
 
 def gestaoEncomendas():
     def adicionarMorada(c, carrinhos):
@@ -709,7 +699,19 @@ while True:
             print("Bem-vindo ao sistema de gestão" + "\n" + "1 - Stock" + "\n" + "2 - Encomendas" + "\n" + "3 - Estafeta" + "\n" + "6 - Sair")
             opcao = int(input("Escolha uma opção: "))
             if opcao == 1:
-                stock()
+                while opcao != 4:
+                    mostraMenuPrincipal()
+                    opcao = int(input())
+                    if opcao == 1:
+                        listaCatalogo(produtos, numProdutos, produto)
+                    else:
+                        if opcao == 2:
+                            criarRegisto(produto, cat)
+                            registaProdutos(produto, produtos, numProdutos)
+                            numProdutos = numProdutos + 1
+                        else:
+                            if opcao == 3:
+                                alterarDados(produtos, numProdutos, produto, cat)
             else:
                 if opcao == 2:
                     gestaoEncomendas()
