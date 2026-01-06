@@ -1,0 +1,719 @@
+def chr(n):
+    return "\n"
+
+def gestaoPedidos():
+    def avaliarServico(estadoPedido, totalPedidos):
+        print("Deseja avaliar qual pedido?")
+        totalPedidos = int(input())
+        if estadoPedido[totalPedidos - 1] == "estado concluído":
+            print("Poderia dar uma nota para avaliar o serviço que foi prestado? (Rating 1-5)")
+            rating = int(input())
+            while rating < 0 and rating > 6:
+                print("A nota que o utilizador atribuiu não está disponível. Tente novamente de 1 a 5.")
+                rating = int(input())
+            print("Poderia colocar um comentário ao serviço?")
+            comentario = input()
+            print("Obrigado!")
+        else:
+            print("O seu pedido ainda não foi concluído!")
+
+    def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido):
+        print("Para começar deve escrever qual é a origem do pedido:")
+        elementosPedidos[0] = input()
+        print("Agora, introduza o destino do pedido.")
+        elementosPedidos[1] = input()
+        print("Introduza a sua janela temporal para receber a sua encomenda:")
+        elementosPedidos[2] = input()
+        print("Por fim, deve introduzir a descrição com os itens do seu pedido.")
+        elementosPedidos[3] = input()
+        if elementosPedidos[0] != "" and elementosPedidos[1] != "" and elementosPedidos[2] != "" and elementosPedidos[3] != "":
+            print("O seu pedido foi criado.")
+            print("Com o pedido criado, deve informar qual é a data do pedido;")
+            elementosPedidos[4] = input()
+            while elementosPedidos[4] == "":
+                print("A data do pedido é obrigatória! Deve voltar a escrever a data!")
+                elementosPedidos[4] = input()
+            elementosPedidos[5] = "estado pendente"
+            estadoPedido[totalPedidos] = elementosPedidos[5]
+            print("Obrigado! O seu pedido encontra-se no estado pendente!")
+            pedidos[totalPedidos] = elementosPedidos[0] + ";" + elementosPedidos[1] + ";" + elementosPedidos[2] + ";" + elementosPedidos[3] + ";" + elementosPedidos[4] + ";" + elementosPedidos[5]
+        else:
+            print("O seu pedido não foi criado. Algum dos dados obrigatórios não foi corretamente preenchido, com isso, deve recomeçar o seu novo pedido.")
+            pedidos[totalPedidos] = ""
+
+    def trackingBasico(estadoPedido, totalPedidos):
+        print("Deseja ver o Tracking Básico de qual pedido?")
+        totalPedidos = int(input())
+        totalPedidos = totalPedidos - 1
+        if estadoPedido[totalPedidos] == "estado pendente":
+            print("O pedido encontra-se no estado pendente. Analisando os últimos detalhes.")
+            estadoPedido[totalPedidos] = "estado enviado"
+            print("O seu pedido já foi enviado!")
+            estadoPedido[totalPedidos] = "estado entregue"
+            print("O seu pedido já foi entregue!")
+            estadoPedido[totalPedidos] = "estado concluído"
+            print("O seu pedido encontra-se finalizado!")
+        else:
+            if estadoPedido[totalPedidos - 1] == "estado enviado":
+                print("O seu pedido já foi enviado. Aguarde pela entrega!")
+                estadoPedido[totalPedidos] = "estado entregue"
+                print("O seu pedido já foi entregue!")
+                estadoPedido[totalPedidos] = "estado concluído"
+                print("O seu pedido encontra-se finalizado!")
+            else:
+                if estadoPedido[totalPedidos - 1] == "entregue":
+                    estadoPedido[totalPedidos] = "estado concluído"
+                    print("O pedido já foi entregue. Encontra-se finalizado!")
+
+    def verPedidos(pedidos, totalPedidos):
+        print("Qual é o pedido que deseja ver?")
+        totalPedidos = int(input())
+        print(pedidos[totalPedidos - 1])
+
+    # Main
+    nome = [""] * (10)
+    estadoPedido = [""] * (10)
+    pedidos = [""] * (10)
+    elementosPedidos = [""] * (6)
+
+    totalPedidos = 0
+    print("Para começar indique o seu o nome:")
+    nome[totalPedidos] = input()
+    while True:    #This simulates a Do Loop
+        print("Menu:" + chr(13) + "1 - Criar Pedidos" + chr(13) + "2 - Ver Pedidos" + chr(13) + "3 - Tracking Básico" + chr(13) + "4 - Avaliar Serviço" + chr(13) + "5 - Ver catálogo" + chr(13) + "6 - Sair")
+        a = int(input())
+        if a == 1:
+            criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
+            totalPedidos = totalPedidos + 1
+        else:
+            if a == 2:
+                verPedidos(pedidos, totalPedidos)
+            else:
+                if a == 3:
+                    trackingBasico(estadoPedido, totalPedidos)
+                else:
+                    if a == 4:
+                        avaliarServico(estadoPedido, totalPedidos)
+                    else:
+                        if a == 5:
+                                listaCatalogo(produtos, numProdutos, produto)
+        if a == 6: break
+
+
+def açoC(produtos, produto):
+    produto[0] = "" + str(1)
+    produto[1] = "Aço Carbono"
+    produto[2] = "Bobina em Aço Carbono"
+    produto[3] = "Metálico"
+    produto[4] = "" + str(150)
+    produto[5] = "" + str(10)
+    produtos[0] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def alterarDados(produtos, numProdutos, produto, cat):
+    print("Indique o ID do produto que pretende alterar")
+    while True:    #This simulates a Do Loop
+        p = int(input())
+        if p > 0: break
+    p = p - 1
+    if p < 0 or p >= numProdutos:
+        print("ID inválido")
+        return
+    carregarProduto(produto, produtos, p)
+    print("Qual é o dado que pretende alterar?" + chr(13) + "1 - Nome" + chr(13) + "2 - Descrição" + chr(13) + "3 - Categoria" + chr(13) + "4 - Preço" + chr(13) + "5 - Stock")
+    opcaoad = int(input())
+    if opcaoad == 1:
+        nome = input()
+        produto[opcaoad] = nome
+        produtos[p] = "ID:" + produto[0] + ";" + produto[opcaoad] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+    else:
+        if opcaoad == 2:
+            descricao = input()
+            produto[opcaoad] = descricao
+            produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[opcaoad] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+        else:
+            if opcaoad == 3:
+                print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
+                while True:    #This simulates a Do Loop
+                    categoria = int(input())
+                    if categoria > 0 and categoria <= 3: break
+                if categoria == 1:
+                    produto[opcaoad] = "Metálico"
+                else:
+                    if categoria == 2:
+                        produto[opcaoad] = "Cerâmico"
+                    else:
+                        if categoria == 3:
+                            produto[opcaoad] = "Polimérico"
+                produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[opcaoad] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+            else:
+                if opcaoad == 4:
+                    preco = float(input())
+                    produto[opcaoad] = str(preco)
+                    produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[opcaoad] + "€" + ";" + produto[5] + "x"
+                else:
+                    if opcaoad == 5:
+                        stock = int(input())
+                        produto[opcaoad] = str(stock)
+                        produtos[p] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[opcaoad] + "x"
+
+def alum(produtos, produto):
+    produto[0] = "" + str(2)
+    produto[1] = "Alumínio"
+    produto[2] = "Perfis de Alumínio"
+    produto[3] = "Metálico"
+    produto[4] = "" + str(200)
+    produto[5] = "" + str(10)
+    produtos[1] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def azulejo(produtos, produto):
+    produto[0] = "" + str(9)
+    produto[1] = "Azulejo"
+    produto[2] = "Azulejo"
+    produto[3] = "Cerâmico"
+    produto[4] = "" + str(3)
+    produto[5] = "" + str(100)
+    produtos[8] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def carregarProduto(produto, produtos, p):
+    parts = produtos[p].split(";")
+    produto[0] = parts[0][3:]  # remove "ID:"
+    produto[1] = parts[1]
+    produto[2] = parts[2]
+    produto[3] = parts[3]
+    produto[4] = parts[4][:-1]  # remove "€"
+    produto[5] = parts[5][:-1]  # remove "x"
+
+def criarRegisto(produto, cat):
+    print("Indique o ID do produto")
+    while True:    #This simulates a Do Loop
+        id = int(input())
+        if id > 0: break
+    produto[0] = str(id)
+    print("Indique o nome do produto")
+    nome = input()
+    produto[1] = nome
+    print("Descreva brevemente o produto produto")
+    descricao = input()
+    produto[2] = descricao
+    print("Indique a categoria do produto" + chr(13) + "1 - Metálico" + chr(13) + "2 - Cerâmico" + chr(13) + "3 - Polimérico")
+    while True:    #This simulates a Do Loop
+        categoria = int(input())
+        if categoria > 0 and categoria <= 3: break
+    produto[3] = cat[categoria - 1]
+    print("Indique o preço do produto")
+    while True:    #This simulates a Do Loop
+        preco = float(input())
+        if preco > 0: break
+    produto[4] = str(preco)
+    print("Indique a quantidade de stock")
+    while True:    #This simulates a Do Loop
+        stock = int(input())
+        if stock > 0: break
+    produto[5] = str(stock)
+
+def diciCat(cat):
+    cat[0] = "metálico"
+    cat[1] = "cerâmico"
+    cat[2] = "polimérico"
+
+def ferro(produtos, produto):
+    produto[0] = "" + str(3)
+    produto[1] = "Ferro"
+    produto[2] = "Vigas de Ferro"
+    produto[3] = "Metálico"
+    produto[4] = "" + str(300)
+    produto[5] = "" + str(10)
+    produtos[2] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def listaCatalogo(produtos, numProdutos, produto):
+    print("Catálogo")
+    for i in range(1, numProdutos + 1, 1):
+        print(produtos[i - 1])
+    zerarProduto(produto)
+
+def mostraMenuPrincipal():
+    print("1 - Listar Catálogo " + chr(13) + "2 - Registar Produto" + chr(13) + "3 - Alterar dados" + chr(13) + "4 - Sair")
+
+def polietileno(produtos, produto):
+    produto[0] = "" + str(5)
+    produto[1] = "Polietileno"
+    produto[2] = "Folha de Polietileno"
+    produto[3] = "Polimérico"
+    produto[4] = "" + str(20)
+    produto[5] = "" + str(10)
+    produtos[4] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def polipropileno(produtos, produto):
+    produto[0] = "" + str(6)
+    produto[1] = "Polipropileno"
+    produto[2] = "Barras de Polipropileno"
+    produto[3] = "Polimérico"
+    produto[4] = "" + str(35)
+    produto[5] = "" + str(10)
+    produtos[5] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def produtosBase(produtos, produto):
+    açoC(produtos, produto)
+    alum(produtos, produto)
+    ferro(produtos, produto)
+    pvc(produtos, produto)
+    polietileno(produtos, produto)
+    polipropileno(produtos, produto)
+    tijolo(produtos, produto)
+    telha(produtos, produto)
+    azulejo(produtos, produto)
+
+def pvc(produtos, produto):
+    produto[0] = "" + str(4)
+    produto[1] = "PVC"
+    produto[2] = "Tubo de PVC"
+    produto[3] = "Polimérico"
+    produto[4] = "" + str(20)
+    produto[5] = "" + str(10)
+    produtos[3] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def registaProdutos(produto, produtos, numProdutos):
+    produtos[numProdutos] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def telha(produtos, produto):
+    produto[0] = "" + str(8)
+    produto[1] = "Telha"
+    produto[2] = "Telha cerâmica"
+    produto[3] = "Cerâmico"
+    produto[4] = "" + str(2)
+    produto[5] = "" + str(100)
+    produtos[7] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def tijolo(produtos, produto):
+    produto[0] = "" + str(7)
+    produto[1] = "Tijolo"
+    produto[2] = "Tijolo maciço"
+    produto[3] = "Cerâmico"
+    produto[4] = "" + str(1)
+    produto[5] = "" + str(100)
+    produtos[6] = "ID:" + produto[0] + ";" + produto[1] + ";" + produto[2] + ";" + produto[3] + ";" + produto[4] + "€" + ";" + produto[5] + "x"
+
+def zerarProduto(produto):
+    for i in range(0, 5 + 1, 1):
+        produto[i] = ""
+
+def zerarProdutos(produtos):
+    for i in range(0, 19 + 1, 1):
+        produtos[i] = ""
+
+# Main
+opcao = 0
+produto = [""] * (6)
+produtos = [""] * (20)
+
+numProdutos = 9
+cat = [""] * (3)
+
+diciCat(cat)
+zerarProdutos(produtos)
+produtosBase(produtos, produto)
+
+def gestaoEncomendas():
+    def adicionarMorada(c, carrinhos):
+        print("Por fim digite a morada: ")
+        morada = input()
+        carrinhos[c] = morada
+        
+        return morada
+
+    def aprovarReprovarEncomenda(encomenda, zonas, i, aprov):
+        mostrarEncomendas(i, encomenda)
+        while True:    #This simulates a Do Loop
+            print("Qual é a encomenda que deseja verificar ?")
+            numEn3 = int(input())
+            numEn3 = numEn3 - 1
+            if numEn3 > -1: break
+        print(encomenda[numEn3])
+        print("Aprovada - 1" + chr(13) + "Reprovada - 2")
+        aprov1 = int(input())
+        while aprov1 != 1 and aprov1 != 2:
+            print("Numero invalido")
+            print("Aprovada - 1" + chr(13) + "Reprovada - 2")
+            aprov1 = int(input())
+        if aprov1 == 1:
+            aprov[numEn3] = "Aprovado"
+        else:
+            aprov[numEn3] = "Reprovada"
+
+    def atribuirZona(encomenda, zonas, estafetas):
+        estafeta = [""] * (5)
+
+        estafeta[0] = "Rui Pereira / Norte"
+        estafeta[1] = "Manuel Simões / Norte"
+        estafeta[2] = "Andereia Gonsalves / Centro"
+        estafeta[3] = "Pedro Faria / Centro"
+        estafeta[4] = "Simão Moreira / Sul"
+        while True:    #This simulates a Do Loop
+            print("Qual é a encomenda que vai atribuir a zona e estafeta?")
+            numEn2 = int(input())
+            numEn2 = numEn2 - 1
+            if numEn2 > -1: break
+        print(encomenda[numEn2])
+        print("Introduza a zona em que a morada se encontra: " + chr(13) + "Norte - 1" + chr(13) + "Centro - 2" + chr(13) + "Sul - 3")
+        zona = int(input())
+        while zona != 1 and zona != 2 and zona != 3:
+            print("Numero invalido")
+            print("Introduza a zona em que a morada se encontra: " + chr(13) + "Norte - 1" + chr(13) + "Centro - 2" + chr(13) + "Sul - 3")
+            zona = int(input())
+        if zona == 1:
+            zonas[numEn2] = "Norte"
+        else:
+            if zona == 2:
+                zonas[numEn2] = "Centro"
+            else:
+                zonas[numEn2] = "Sul"
+        print("Agora introduza o estafeta" + chr(13) + "Estafetas: " + estafeta[0] + " -1" + chr(13) + estafeta[1] + " -2" + chr(13) + estafeta[2] + " -3" + chr(13) + estafeta[3] + " -4" + chr(13) + estafeta[4] + " -5")
+        numEsta = int(input())
+        while numEsta != 1 and numEsta != 2 and numEsta != 3 and numEsta != 4 and numEsta != 5:
+            print("Numero invalido")
+            print("Estafetas: " + estafeta[0] + " -1" + chr(13) + estafeta[1] + chr(13) + " -2" + estafeta[2] + chr(13) + " -3" + estafeta[3] + chr(13) + " -4" + estafeta[4] + " -5")
+            numEsta = int(input())
+        if numEsta == 1:
+            estafetas[numEn2] = "Rui Pereira"
+        else:
+            if numEsta == 2:
+                estafetas[numEn2] = "Manuel Simões"
+            else:
+                if numEsta == 3:
+                    estafetas[numEn2] = "Andereia Gonsalves"
+                else:
+                    if numEsta == 4:
+                        estafetas[numEn2] = "Pedro Faria"
+                    else:
+                        estafetas[numEn2] = "Simão Moreira"
+
+    def criarCarrinho(carrinho, carrinhos, c):
+        lista = 0
+        while True:    #This simulates a Do Loop
+            print("Qual o produto que sejá adquirir??")
+            carrinho[0] = input()
+            print("Agora qual a quantidade??")
+            carrinho[1] = input()
+            carrinhos[c] = carrinho[0] + " " + carrinho[1]
+            c = c + 1
+            print("Quer adicionar mais produtos a sua compra??" + chr(13) + "2 - para continuar" + chr(13) + "3 - para parar")
+            pararCicloCompras = int(input())
+            if pararCicloCompras == 2:
+                continuarCompras = True
+            else:
+                continuarCompras = False
+            if continuarCompras != True or c >= 10: break
+        if c == 10:
+            print("Maximo de produtos atingido no carrinho, finali-se a compra")
+        adicionarMorada(c, carrinhos)
+
+    def editarEncomenda(encomenda):
+        while True:    #This simulates a Do Loop
+            print("Qual o numeiro da encomenda ?")
+            numEn = int(input())
+            numEn = numEn - 1
+            if numEn > -1 and numEn <= 11: break
+        print(encomenda[numEn])
+        print("Agora pode editar a encomenda.")
+        encomenda[numEn] = input()
+
+    def encomendas(carrinhos, c, encomenda, i):
+        encomenda[i] = carrinhos[0] + " ; " + carrinhos[1] + " ; " + carrinhos[2] + " ; " + carrinhos[3] + " ; " + carrinhos[4] + " ; " + carrinhos[5] + " ; " + carrinhos[6] + " ; " + carrinhos[7] + " ; " + carrinhos[8] + " ; " + carrinhos[9] + " ; " + carrinhos[10]
+
+    def limparArrays(zonas, encomenda, estafetas, aprov):
+        for y in range(0, 10 + 1, 1):
+            zonas[y] = " "
+            encomenda[y] = " "
+            estafetas[y] = " "
+            aprov[y] = " "
+
+    def mostrarEncomendas(i, encomenda):
+        lista = 0
+        while lista < i:
+            print("Encomenda 1: " + encomenda[lista])
+            lista = lista + 1
+
+    def mostrarZonas(estafetas, zonas, encomenda):
+        contN = 0
+        print("Qual é a zona que quer procurar encomendas?")
+        print("1 - Norte" + chr(13) + "2 - Centro" + chr(13) + "3 - Sul")
+        numZonaEncomenda = int(input())
+        while numZonaEncomenda != 1 and numZonaEncomenda != 2 and numZonaEncomenda != 3: #Verificação de input
+            print("Numero invalido")
+            print("1 - Norte" + chr(13) + "2 - Centro" + chr(13) + "3 - Sul")
+            numZonaEncomenda = int(input())
+        if numZonaEncomenda == 1: #Dar ao numero um nome
+            encontrar = "Norte"
+            for x in range(0, 10 + 1, 1):
+                if zonas[x] == encontrar:
+                    print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: 5" + zonas[x])
+                else:
+                    contN = contN + 1
+        else:
+            if numZonaEncomenda == 2:
+                encontrar = "Centro"
+                for x in range(0, 10 + 1, 1):
+                    if zonas[x] == encontrar:
+                        print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
+                    else:
+                        contN = contN + 1
+            else:
+                encontrar = "Sul"
+                for x in range(0, 10 + 1, 1):
+                    if zonas[x] == encontrar:
+                        print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
+                    else:
+                        contN = contN + 1
+        if contN == 11:
+            print("Nenhuma encomenda encontrada nessa zona")
+
+    # Main
+    carrinhos = [""] * (11)
+    zonas = [""] * (11)
+    carrinho = [""] * (2)
+    encomenda = [""] * (11)
+    estafetas = [""] * (11)
+    aprov = [""] * (11)
+
+    c = 0
+    i = 0
+    limparArrays(zonas, encomenda, estafetas, aprov)
+    while True:    #This simulates a Do Loop
+        for z in range(0, 10 + 1, 1):
+            carrinhos[z] = " "
+        print("Menu: " + chr(13) + "1 - Criar encomenda" + chr(13) + "2 - Modificar encomenda" + chr(13) + "3 - Atribuir zona" + chr(13) + "4 - Aprovar ou reprovar encomendas" + chr(13) + "5 - Filtrar encomendas" + "\n" + "6 - Sair")
+        menu = int(input())
+        if menu == 1:
+            criarCarrinho(carrinho, carrinhos, c)
+            encomendas(carrinhos, c, encomenda, i)
+            i = i + 1
+        else:
+            if menu == 2:
+                editarEncomenda(encomenda)
+            else:
+                if menu == 3:
+                    atribuirZona(encomenda, zonas, estafetas)
+                else:
+                    if menu == 4:
+                        aprovarReprovarEncomenda(encomenda, zonas, i, aprov)
+                    else:
+                        if menu == 5:
+                            mostrarZonas(estafetas, zonas, encomenda)   
+        if menu == 6: break
+    # grava no CSV (colunas separadas por ';')
+    with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file, delimiter=';')
+        for j in range(0, i):
+            if encomenda[j] == "" or encomenda[j] is None:
+                continue
+
+def estafeta():
+    def atualizarEstado(n, estado, estadoEncomenda, tempIE, tempFE):
+        estadosEncomendas()
+        while True:    #This simulates a Do Loop
+            opcaoestado = int(input())
+            if opcaoestado > 0 and opcaoestado <= 3: break
+        estadoEncomenda[n] = estado[opcaoestado]
+        if estadoEncomenda[n] == estado[1]:
+            print("Indique a hora de início de recolha, no formato (hora.minuto)")
+            while True:    #This simulates a Do Loop
+                tempI = float(input())
+                if int(tempI) >= 0 or tempI <= 24 or tempI <= 8.61 or tempI <= 9.61 or tempI <= 10.61 or tempI <= 11.61 or tempI <= 12.61 or tempI <= 13.61 or tempI <= 14.61 or tempI <= 15.61 or tempI <= 16.61 or tempI <= 17.61 or tempI <= 18.61 or tempI <= 19.61: break
+            tempIE[n] = tempI
+        else:
+            if estadoEncomenda[n] == estado[3]:
+                print("Indique a hora de entrega, no formato (hora.minuto)")
+                while True:    #This simulates a Do Loop
+                    tempF = float(input())
+                    if int(tempF) >= 0 or tempF <= 24 or tempF <= 8.61 or tempF <= 9.61 or tempF <= 10.61 or tempF <= 11.61 or tempF <= 12.61 or tempF <= 13.61 or tempF <= 14.61 or tempF <= 15.61 or tempF <= 16.61 or tempF <= 17.61 or tempF <= 18.61 or tempF <= 19.61: break
+                tempFE[n] = tempF
+
+    def decisao(n, estado, estadoEncomenda, locEncomenda, localizacoes, tempIE, tempFE):
+        print("Deseja entregar a encomenda?" + chr(13) + "1 - Sim" + chr(13) + "2 - Não")
+        while True:    #This simulates a Do Loop
+            decisao = int(input())
+            if decisao <= 2 and decisao >= 1: break
+        if decisao == 1:
+            mostraMenuEntregas(n, estado, estadoEncomenda, locEncomenda, localizacoes, tempIE, tempFE)
+        else:
+            print("Indique o motivo da recusa")
+            motivoRecusa = input()
+            estadoEncomenda[n] = estado[4]
+            print(estadoEncomenda[n])
+
+    def diciEstado(estado):
+        estado[0] = "criada"
+        estado[1] = "emRecolha"
+        estado[2] = "emDistribuicao"
+        estado[3] = "entregue"
+        estado[4] = "entregaRecusada"
+        estado[5] = "entregaCancelada"
+
+    def diciLocs(localizacoes):
+        localizacoes[0] = "norte"
+        localizacoes[1] = "centro"
+        localizacoes[2] = "sul"
+
+    def estadosEncomendas():
+        print("Indique o estado da encomenda" + chr(13) + "1 - Em Recolha" + chr(13) + "2 - Em Distribuição" + chr(13) + "3 - Entregue")
+
+    def listaEncomendas(encomendas, numEncomendas):
+        print("Lista de Encomendas")
+        for i in range(1, numEncomendas + 1, 1):
+            print(encomendas[i - 1])
+
+    def menuEntregas():
+        print("Menu Entregas" + chr(13) + "1 - Atualizar o estado da encomenda" + chr(13) + "2 - Reportar Anomalias" + chr(13) + "3 - Registar Localização" + chr(13) + "4 - Sair")
+
+    def metricas(estadoEncomenda, numEncomendas, numESucedidas, tempIE, tempFE):
+        taxaSucesso = 0
+        i = 0
+        if numEncomendas == 0:
+            pass
+        else:
+            while i <= numEncomendas:
+                if estadoEncomenda[i] == "entregue":
+                    numESucedidas = numESucedidas + 1
+                i = i + 1
+            taxaSucesso = float(numESucedidas) / numEncomendas * 100
+        print("Métricas Pessoais: " + chr(13) + "Entregas realizadas: " + str(numESucedidas) + chr(13) + "Taxa de Sucesso de Entregas: " + str(taxaSucesso) + "%")
+        for i in range(0, numEncomendas + 1, 1):
+            print("Tempo Inicial: " + str(tempIE[i]) + " Tempo Final: " + str(tempFE[i]))
+
+    def mostraMenuEntregas(n, estado, estadoEncomenda, locEncomenda, localizacoes, tempIE, tempFE):
+        opcao = 1
+        while opcao != 4:
+            menuEntregas()
+            opcao = int(input())
+            if opcao == 1:
+                atualizarEstado(n, estado, estadoEncomenda, tempIE, tempFE)
+            else:
+                if opcao == 2:
+                    reportarAnomalia(n, estado, estadoEncomenda)
+                else:
+                    if opcao == 3:
+                        registarLoc(n, locEncomenda, localizacoes)
+
+    def mostraMenuPrincipal():
+        print("1 - Lista de Encomendas" + chr(13) + "2 - Atribuição de Encomendas" + chr(13) + "3 - Consulta de métricas Pessoais" + chr(13) + "4 - Sair")
+
+    def obtemDadosEncomenda(encomenda, numEncomendas):
+        print("Digite o codigo para a encomenda " + str(numEncomendas + 1))
+        while True:    #This simulates a Do Loop
+            codigo = int(input())
+            if codigo > 0: break
+        encomenda[0] = "" + str(codigo)
+        print("Digite o nome associado à encomenda")
+        nome = input()
+        encomenda[1] = nome
+        print("Digite o seu contacto")
+        while True:    #This simulates a Do Loop
+            contacto = int(input())
+            if contacto > 0: break
+        encomenda[2] = "" + str(contacto)
+        print("Digite a morada da encomenda")
+        morada = input()
+        encomenda[3] = morada
+
+    def obtemEncomenda(n):
+        print("Indique o numero da encomenda")
+        while True:    #This simulates a Do Loop
+            n = int(input())
+            if n > 0: break
+        n = n - 1
+
+    def registaEncomenda(encomendas, encomenda, numEncomendas):
+        encomendas[numEncomendas] = encomenda[0] + ";" + encomenda[1] + ";" + encomenda[2] + ";" + encomenda[3]
+
+    def registarLoc(n, locEncomenda, localizacoes):
+        print("Indique a região de entrega da encomenda" + chr(13) + "1 - norte" + chr(13) + "2 - Centro" + chr(13) + "3 - Sul")
+        while True:    #This simulates a Do Loop
+            opcaoloc = int(input())
+            if opcaoloc > 0 and opcaoloc <= 4: break
+        opcaoloc = opcaoloc - 1
+        locEncomenda[n] = localizacoes[opcaoloc]
+
+    def reportarAnomalia(n, estado, estadoEncomenda):
+        print("Reporte a anomalia")
+        anomalia = input()
+        estadoEncomenda[n] = estado[5]
+
+    def zerarEstadoEncomenda(estadoEncomenda):
+        for i in range(0, 99 + 1, 1):
+            estadoEncomenda[i] = ""
+
+    def zerarTempos(tempIE, tempFE):
+        for i in range(0, 99 + 1, 1):
+            tempIE[i] = 0
+        for i in range(0, 99 + 1, 1):
+            tempFE[i] = 0
+
+    # Main
+    n = 0
+    encomenda = [""] * (4)
+
+    numEncomendas = 0
+    numESucedidas = 0
+    encomendas = [""] * (100)
+    estadoEncomenda = [""] * (100)
+    locEncomenda = [""] * (100)
+    tempIE = [0] * (100)
+    tempFE = [0] * (100)
+
+    zerarEstadoEncomenda(estadoEncomenda)
+    zerarTempos(tempIE, tempFE)
+    estado = [""] * (6)
+    localizacoes = [""] * (3)
+
+    diciLocs(localizacoes)
+    diciEstado(estado)
+    opcao = 1
+    while opcao != 4:
+        mostraMenuPrincipal()
+        opcao = int(input())
+        if opcao == 1:
+            listaEncomendas(encomendas, numEncomendas)
+        else:
+            if opcao == 2:
+                obtemEncomenda(n)
+                decisao(n, estado, estadoEncomenda, locEncomenda, localizacoes, tempIE, tempFE)
+            else:
+                if opcao == 3:
+                    metricas(estadoEncomenda, numEncomendas, numESucedidas, tempIE, tempFE)
+
+#Login Section
+
+while True:
+    print("Login")
+    Username = input("Username: ")
+    Password = input("Password: ")
+    if Username == "admin" and Password == "admin":
+        while True:
+            print("Bem-vindo ao sistema de gestão" + "\n" + "1 - Stock" + "\n" + "2 - Encomendas" + "\n" + "3 - Estafeta" + "\n" + "6 - Sair")
+            opcao = int(input("Escolha uma opção: "))
+            if opcao == 1:
+                while opcao != 4:
+                    mostraMenuPrincipal()
+                    opcao = int(input())
+                    if opcao == 1:
+                        listaCatalogo(produtos, numProdutos, produto)
+                    else:
+                        if opcao == 2:
+                            criarRegisto(produto, cat)
+                            registaProdutos(produto, produtos, numProdutos)
+                            numProdutos = numProdutos + 1
+                        else:
+                            if opcao == 3:
+                                alterarDados(produtos, numProdutos, produto, cat)
+            else:
+                if opcao == 2:
+                    gestaoEncomendas()
+                else:
+                    if opcao == 3:
+                        estafeta()
+            if opcao == 6: break
+    else:
+        if Username == "exit" or Password == "exit": break
+        else:
+            print("Olá bem-vindo ao site da Send2You!")
+            gestaoPedidos()
