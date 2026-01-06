@@ -2,7 +2,8 @@ import csv
 
 with open("encomenda.csv", mode="w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file, delimiter=';')
-    writer.writerows(["nome", "quantidade", "morada"])
+    # escreve o cabeçalho como UMA linha (writerow), não várias linhas
+    writer.writerow(["nome/quantidade", "morada"])
 
 def chr(n):
     return "\n"
