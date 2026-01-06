@@ -1,8 +1,7 @@
-def chr(n):
-    return "\n"
-
 def avaliarServico(estadoPedido, totalPedidos):
-    if estadoPedido[totalPedidos] == "estado concluído":
+    print("Deseja avaliar qual pedido?")
+    totalPedidos = int(input())
+    if estadoPedido[totalPedidos - 1] == "estado concluído":
         print("Poderia dar uma nota para avaliar o serviço que foi prestado? (Rating 1-5)")
         rating = int(input())
         while rating < 0 and rating > 6:
@@ -14,7 +13,7 @@ def avaliarServico(estadoPedido, totalPedidos):
     else:
         print("O seu pedido ainda não foi concluído!")
 
-def criarPedido(pedidos, elementosPedidos, totalPedidos):
+def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido):
     print("Para começar deve escrever qual é a origem do pedido:")
     elementosPedidos[0] = input()
     print("Agora, introduza o destino do pedido.")
@@ -31,6 +30,7 @@ def criarPedido(pedidos, elementosPedidos, totalPedidos):
             print("A data do pedido é obrigatória! Deve voltar a escrever a data!")
             elementosPedidos[4] = input()
         elementosPedidos[5] = "estado pendente"
+        estadoPedido[totalPedidos] = elementosPedidos[5]
         print("Obrigado! O seu pedido encontra-se no estado pendente!")
         pedidos[totalPedidos] = elementosPedidos[0] + ";" + elementosPedidos[1] + ";" + elementosPedidos[2] + ";" + elementosPedidos[3] + ";" + elementosPedidos[4] + ";" + elementosPedidos[5]
     else:
@@ -38,9 +38,12 @@ def criarPedido(pedidos, elementosPedidos, totalPedidos):
         pedidos[totalPedidos] = ""
 
 def estadoPedido(elementosPedidos, totalPedidos, estadoPedido):
-    estadoPedido[totalPedidos] = elementosPedidos[5]
+    estadoPedido[totalPedidos - 1] = elementosPedidos[5]
 
 def trackingBasico(estadoPedido, totalPedidos):
+    print("Deseja ver o Tracking Básico de qual pedido?")
+    totalPedidos = int(input())
+    totalPedidos = totalPedidos - 1
     if estadoPedido[totalPedidos] == "estado pendente":
         print("O pedido encontra-se no estado pendente. Analisando os últimos detalhes.")
         estadoPedido[totalPedidos] = "estado enviado"
@@ -50,16 +53,21 @@ def trackingBasico(estadoPedido, totalPedidos):
         estadoPedido[totalPedidos] = "estado concluído"
         print("O seu pedido encontra-se finalizado!")
     else:
-        if estadoPedido == "estado enviado":
+        if estadoPedido[totalPedidos - 1] == "estado enviado":
             print("O seu pedido já foi enviado. Aguarde pela entrega!")
             estadoPedido[totalPedidos] = "estado entregue"
             print("O seu pedido já foi entregue!")
             estadoPedido[totalPedidos] = "estado concluído"
             print("O seu pedido encontra-se finalizado!")
         else:
-            if estadoPedido == "entregue":
+            if estadoPedido[totalPedidos - 1] == "entregue":
                 estadoPedido[totalPedidos] = "estado concluído"
                 print("O pedido já foi entregue. Encontra-se finalizado!")
+
+def verPedidos(pedidos, totalPedidos):
+    print("Qual é o pedido que deseja ver?")
+    totalPedidos = int(input())
+    print(pedidos[totalPedidos - 1])
 
 # Main
 nome = [""] * (10)
@@ -70,20 +78,20 @@ elementosPedidos = [""] * (6)
 totalPedidos = 0
 print("Olá, Bem-vindo! Para começar deve digitar o seu o nome da cliente.")
 nome[totalPedidos] = input()
-print("O cliente " + nome[totalPedidos] + " pretende criar um novo pedido? (s/n)")
-opcao1 = input()
-if opcao1 == "s":
-    print("Vamos começar a criar o seu novo pedido!")
-    criarPedido(pedidos, elementosPedidos, totalPedidos)
-    if pedidos[totalPedidos] == "":
-        print("Deve criar novamente o pedido!")
+while True:    #This simulates a Do Loop
+    print("Menu:" + chr(13) + "1-Criar Pedidos" + chr(13) + "2-Ver Pedidos" + chr(13) + "3-Tracking Básico" + chr(13) + "4-Avaliar Serviço" + chr(13) + "0-Sair")
+    a = int(input())
+    if a == 1:
+        criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido)
+        totalPedidos = totalPedidos + 1
     else:
-        estadoPedido(elementosPedidos, totalPedidos, estadoPedido)
-        print("Pretende ver o tracking básico do seu pedido? (s/n)")
-        opcao2 = input()
-        if opcao2 == "s":
-            trackingBasico(estadoPedido, totalPedidos)
-            print("Pretende avaliar o serviço prestado? (s/n)")
-            opcao3 = input()
-            if opcao3 == "s":
-                avaliarServico(estadoPedido, totalPedidos)
+        if a == 2:
+            verPedidos(pedidos, totalPedidos)
+        else:
+            if a == 3:
+                trackingBasico(estadoPedido, totalPedidos)
+            else:
+                if a == 4:
+                    avaliarServico(estadoPedido, totalPedidos)
+    if a == 0: break
+
