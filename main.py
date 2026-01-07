@@ -482,7 +482,7 @@ def gestaoEncomendas(encomendaTotal): #Função principal de gestão de encomend
             print("Maximo de produtos atingido no carrinho, finali-se a compra")
         adicionarMorada(c, carrinhos) #Chamada da função de adicionar morada ao carrinho
 
-    def editarEncomenda(encomendaTotal): #Função de edição da encomenda
+    def editarEncomenda(encomendaTotal, i): #Função de edição da encomenda
         while True:    #This simulates a Do Loop para verificar do numero da encomenda
             print("Qual o número da encomenda ?")
             numEn = int(input())
@@ -558,7 +558,7 @@ def gestaoEncomendas(encomendaTotal): #Função principal de gestão de encomend
         print("Menu: " + chr(13) + "1 - Modificar encomenda" + chr(13) + "2 - Atribuir zona e estafeta" + chr(13) + "3 - Aprovar ou reprovar encomendas" + chr(13) + "4 - Filtrar encomendas" + chr(13) + "5 - Criar encomenda" + chr(13) + "6 - Sair")
         menu = int(input())
         if menu == 1:
-            editarEncomenda(encomendaTotal)
+            editarEncomenda(encomendaTotal, i)
         else:
             if menu == 2:
                 atribuirZona(encomendaTotal, zonas, estafetas)
@@ -632,7 +632,7 @@ def estafeta(encomendasTotal):
 
     def listaEncomendas(encomendasTotal, numEncomendas):
         print("Lista de Encomendas")
-        for i in range(0, numEncomendas):
+        for i in range(0, 10 + 1, 1):
             print(encomendasTotal[i])
 
     def menuEntregas():
