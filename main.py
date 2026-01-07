@@ -546,6 +546,7 @@ def gestaoEncomendas(encomendaTotal): #Função principal de gestão de encomend
                         if menu == 5:
                                 criarCarrinho(carrinho, carrinhos, c)
                                 encomendas(carrinhos, c, encomendaTotal, i)
+                                i = i + 1
         if menu == 6: break
     # grava no CSV (colunas separadas por ';')
     with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
