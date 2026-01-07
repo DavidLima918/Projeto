@@ -369,8 +369,8 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
         
         return morada
 
-    def aprovarReprovarEncomenda(encomenda, zonas, i, aprov): #Função de aprovação ou reprovação da encomenda
-        mostrarEncomendas(i, encomenda)
+    def aprovarReprovarEncomenda(encomendaTotal, zonas, i, aprov): #Função de aprovação ou reprovação da encomenda
+        mostrarEncomendas(i, encomendaTotal)
         while True:    #This simulates a Do Loop para verificar do numero da encomenda
             print("Qual é a encomenda que deseja verificar ?")
             numEn3 = int(input())
@@ -388,7 +388,7 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
         else:
             aprov[numEn3] = "Reprovada"
 
-    def atribuirZona(encomenda, zonas, estafetas): #Função para atribuir de zona e estafeta
+    def atribuirZona(encomendaTotal, zonas, estafetas): #Função para atribuir de zona e estafeta
         estafeta = [""] * (5)
 
         estafeta[0] = "Rui Pereira / Norte"
@@ -401,7 +401,7 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
             numEn2 = int(input())
             numEn2 = numEn2 - 1
             if numEn2 > -1: break
-        print(encomenda[numEn2])
+        print(encomendaTotal[numEn2])
         print("Introduza a zona em que a morada se encontra: " + chr(13) + "Norte - 1" + chr(13) + "Centro - 2" + chr(13) + "Sul - 3")
         zona = int(input())
         while zona != 1 and zona != 2 and zona != 3: #Verificação do input
@@ -455,33 +455,33 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
             print("Maximo de produtos atingido no carrinho, finali-se a compra")
         adicionarMorada(c, carrinhos) #Chamada da função de adicionar morada ao carrinho
 
-    def editarEncomenda(encomenda): #Função de edição da encomenda
+    def editarEncomenda(encomendaTotal): #Função de edição da encomenda
         while True:    #This simulates a Do Loop para verificar do numero da encomenda
             print("Qual o número da encomenda ?")
             numEn = int(input())
             numEn = numEn - 1
             if numEn > -1 and numEn <= 11: break
-        print(encomenda[numEn])
+        print(encomendaTotal[numEn])
         print("Agora pode editar a encomenda.") 
-        encomenda[numEn] = input()
+        encomendaTotal[numEn] = input()
 
-    def encomendas(carrinhos, c, encomenda, i): #Função de organizar o carrinho na encomenda
-        encomenda[i] = carrinhos[0] + " ; " + carrinhos[1] + " ; " + carrinhos[2] + " ; " + carrinhos[3] + " ; " + carrinhos[4] + " ; " + carrinhos[5] + " ; " + carrinhos[6] + " ; " + carrinhos[7] + " ; " + carrinhos[8] + " ; " + carrinhos[9] + " ; " + carrinhos[10]
+    def encomendas(carrinhos, c, encomendaTotal, i): #Função de organizar o carrinho na encomenda
+        encomendaTotal[i] = carrinhos[0] + " ; " + carrinhos[1] + " ; " + carrinhos[2] + " ; " + carrinhos[3] + " ; " + carrinhos[4] + " ; " + carrinhos[5] + " ; " + carrinhos[6] + " ; " + carrinhos[7] + " ; " + carrinhos[8] + " ; " + carrinhos[9] + " ; " + carrinhos[10]
 
-    def limparArrays(zonas, encomenda, estafetas, aprov): #Função para limpar os arrays
+    def limparArrays(zonas, encomendaTotal, estafetas, aprov): #Função para limpar os arrays
         for y in range(0, 10 + 1, 1):
             zonas[y] = " "
-            encomenda[y] = " "
+            encomendaTotal[y] = " "
             estafetas[y] = " "
             aprov[y] = " "
 
-    def mostrarEncomendas(i, encomenda): #Função de mostrar encomendas
+    def mostrarEncomendas(i, encomendaTotal): #Função de mostrar encomendas
         lista = 0
         while lista < i:
-            print("Encomenda 1: " + encomenda[lista])
+            print("Encomenda 1: " + encomendaTotal[lista])
             lista = lista + 1
 
-    def mostrarZonas(estafetas, zonas, encomenda): #Função filtrar encomendas por zona
+    def mostrarZonas(estafetas, zonas, encomendaTotal): #Função filtrar encomendas por zona
         contN = 0
         print("Qual é a zona que quer procurar encomendas?")
         print("1 - Norte" + chr(13) + "2 - Centro" + chr(13) + "3 - Sul")
@@ -494,7 +494,7 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
             encontrar = "Norte"
             for x in range(0, 10 + 1, 1): #Loop para procurar encomendas na zona norte
                 if zonas[x] == encontrar:
-                    print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: 5" + zonas[x])
+                    print(encomendaTotal[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: 5" + zonas[x])
                 else:
                     contN = contN + 1
         else:
@@ -502,14 +502,14 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
                 encontrar = "Centro"
                 for x in range(0, 10 + 1, 1): #Loop para procurar encomendas na zona centro
                     if zonas[x] == encontrar:
-                        print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
+                        print(encomendaTotal[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
                     else:
                         contN = contN + 1
             else:
                 encontrar = "Sul"
                 for x in range(0, 10 + 1, 1): #Loop para procurar encomendas na zona sul
                     if zonas[x] == encontrar:
-                        print(encomenda[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
+                        print(encomendaTotal[x] + " ;" + " Estafeta: " + estafetas[x] + "; Zona: " + zonas[x])
                     else:
                         contN = contN + 1
         if contN == 11:
@@ -519,35 +519,39 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
     carrinhos = [""] * (11)
     zonas = [""] * (11)
     carrinho = [""] * (2)
-    encomenda = [""] * (11)
+    encomendaTotal = [""] * (11)
     estafetas = [""] * (11)
     aprov = [""] * (11)
 
     c = 0
     i = 0
-    limparArrays(zonas, encomenda, estafetas, aprov) #Chamada da função de limpar arrays
+    limparArrays(zonas, encomendaTotal, estafetas, aprov) #Chamada da função de limpar arrays
     while True:    #This simulates a Do Loop
         for z in range(0, 10 + 1, 1):
             carrinhos[z] = " "
-        print("Menu: " + chr(13) + "1 - Modificar encomenda" + chr(13) + "2 - Atribuir zona e estafeta" + chr(13) + "3 - Aprovar ou reprovar encomendas" + chr(13) + "4 - Filtrar encomendas" + chr(13) + "5 - Sair")
+        print("Menu: " + chr(13) + "1 - Modificar encomenda" + chr(13) + "2 - Atribuir zona e estafeta" + chr(13) + "3 - Aprovar ou reprovar encomendas" + chr(13) + "4 - Filtrar encomendas" + chr(13) + "5 - Criar encomenda" + chr(13) + "6 - Sair")
         menu = int(input())
         if menu == 1:
-            editarEncomenda(encomenda)
+            editarEncomenda(encomendaTotal)
         else:
             if menu == 2:
-                atribuirZona(encomenda, zonas, estafetas)
+                atribuirZona(encomendaTotal, zonas, estafetas)
             else:
                 if menu == 3:
-                        aprovarReprovarEncomenda(encomenda, zonas, i, aprov)
+                        aprovarReprovarEncomenda(encomendaTotal, zonas, i, aprov)
                 else:
                     if menu == 4:
-                            mostrarZonas(estafetas, zonas, encomenda) 
-        if menu == 5: break
+                            mostrarZonas(estafetas, zonas, encomendaTotal) 
+                    else:
+                        if menu == 5:
+                                criarCarrinho(carrinho, carrinhos, c)
+                                encomendas(carrinhos, c, encomendaTotal, i)
+        if menu == 6: break
     # grava no CSV (colunas separadas por ';')
     with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter=';')
         for j in range(0, i):
-            if encomenda[j] == "" or encomenda[j] is None:
+            if encomendaTotal[j] == "" or encomendaTotal[j] is None:
                 continue
 
 def estafeta():
