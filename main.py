@@ -1,4 +1,15 @@
 import csv
+# Variáveis globais
+
+produtos = [""] * (20)
+numProdutos = 9
+produto = [""] * (6)
+cat = [""] * (3)
+productNames = [" Aço Carbono", " Alumínio", "Ferro", " PVC", " Polietileno", " Polipropileno", " Tijolo", " Telha", " Azulejo"]
+pedidos = [""] * (10)  # Adicionado como global
+totalPedidos = 0  # Adicionado como global
+estadoPedido = [""] * (10)  # Adicionado como global, se necessário para outras funções
+
 
 with open("encomenda.csv", mode="w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file, delimiter=';')
@@ -338,6 +349,7 @@ def zerarProdutos(produtos): #Função para esvaziar o array produtos
         produtos[i] = ""
 
 # Main
+
 opcao = 0
 produto = [""] * (6)
 produtos = [""] * (20) #Array da lista de produtos
@@ -364,7 +376,7 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
             numEn3 = int(input())
             numEn3 = numEn3 - 1
             if numEn3 > -1: break
-        print(encomenda[numEn3])
+        print(pedidos[numEn3])
         print("Aprovada - 1" + chr(13) + "Reprovada - 2")
         aprov1 = int(input())
         while aprov1 != 1 and aprov1 != 2: #Verificação do input
@@ -445,7 +457,7 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
 
     def editarEncomenda(encomenda): #Função de edição da encomenda
         while True:    #This simulates a Do Loop para verificar do numero da encomenda
-            print("Qual o numeiro da encomenda ?")
+            print("Qual o número da encomenda ?")
             numEn = int(input())
             numEn = numEn - 1
             if numEn > -1 and numEn <= 11: break
@@ -517,28 +529,20 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
     while True:    #This simulates a Do Loop
         for z in range(0, 10 + 1, 1):
             carrinhos[z] = " "
-        print("Menu: " + chr(13) + "1 - Criar encomenda" + chr(13) + "2 - Modificar encomenda" + chr(13) + "3 - Atribuir zona" + chr(13) + "4 - Aprovar ou reprovar encomendas" + chr(13) + "5 - Filtrar encomendas" + "\n" + "6 - Lista de produtos" + "\n" + "7 - Sair")
+        print("Menu: " + chr(13) + "1 - Modificar encomenda" + chr(13) + "2 - Atribuir zona e estafeta" + chr(13) + "3 - Aprovar ou reprovar encomendas" + chr(13) + "4 - Filtrar encomendas" + chr(13) + "5 - Sair")
         menu = int(input())
         if menu == 1:
-            criarCarrinho(carrinho, carrinhos, c)
-            encomendas(carrinhos, c, encomenda, i)
-            i = i + 1
+            editarEncomenda(encomenda)
         else:
             if menu == 2:
-                editarEncomenda(encomenda)
+                atribuirZona(encomenda, zonas, estafetas)
             else:
                 if menu == 3:
-                    atribuirZona(encomenda, zonas, estafetas)
+                        aprovarReprovarEncomenda(encomenda, zonas, i, aprov)
                 else:
                     if menu == 4:
-                        aprovarReprovarEncomenda(encomenda, zonas, i, aprov)
-                    else:
-                        if menu == 5:
                             mostrarZonas(estafetas, zonas, encomenda) 
-                        else:
-                            if  menu == 6:
-                                listaCatalogo(produtos, numProdutos, produto)
-        if menu == 7: break
+        if menu == 5: break
     # grava no CSV (colunas separadas por ';')
     with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter=';')
