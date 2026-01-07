@@ -24,27 +24,56 @@ def gestaoPedidos(): #Função principal de gestão de pedidos
         else:
             print("O seu pedido ainda não foi concluído!")
 
-    def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido): #Função de criação de pedidos
+    def criarPedido(pedidos, elementosPedidos, totalPedidos, estadoPedido):
         print("Para começar deve escrever qual é a origem do pedido:")
-        elementosPedidos[0] = input()
+        elementosPedidos[0] = "Origem: " + input()
         print("Agora, introduza o destino do pedido.")
-        elementosPedidos[1] = input()
+        elementosPedidos[1] = " Destino: " + input()
         print("Introduza a sua janela temporal para receber a sua encomenda:")
-        elementosPedidos[2] = input()
-        print("Por fim, deve introduzir a descrição com os itens do seu pedido.")
-        elementosPedidos[3] = input()
-        if elementosPedidos[0] != "" and elementosPedidos[1] != "" and elementosPedidos[2] != "" and elementosPedidos[3] != "": #Verificação de inputs obrigatórios
+        elementosPedidos[2] = " Janela temporal: " + input()
+        print("Indique o produto que pretende encomendar:" + chr(13) + "1 - Aço Carbono" + chr(13) + "2 - Alumínio" + chr(13) + "3 - Ferro" + chr(13) + "4 - PVC" + chr(13) + "5 - Polietileno" + chr(13) + "6 - Polipropileno" + chr(13) + "7 - Tijolo" + chr(13) + "8 - Telha" + chr(13) + "9 - Azulejo")
+        a = int(input())
+        if a == 1:
+            elementosPedidos[3] = " Aço Carbono" 
+        else:   
+            if a == 2:
+                elementosPedidos[3] = " Alumínio"
+            else:
+                if a == 3:
+                    elementosPedidos[3] = "Ferro"
+                else:
+                    if a == 4:
+                        elementosPedidos[3] = " PVC"
+                    else:
+                        if a == 5:
+                            elementosPedidos[3] = " Polietileno"
+                        else:
+                            if a == 6:
+                                elementosPedidos[3] = " Polipropileno"
+                            else:
+                                if a == 7:
+                                    elementosPedidos[3] = " Tijolo"
+                                else:
+                                    if a == 8:
+                                        elementosPedidos[3] = " Telha"
+                                    else:
+                                        if a == 9:
+                                            elementosPedidos[3] = " Azulejo"
+        print("Indique a quantidade do produto que pretende encomendar")
+        quantidade = int(input())
+        elementosPedidos[6] = elementosPedidos[6] + " Quantidade: " + str(quantidade)
+        if elementosPedidos[0] != "" and elementosPedidos[1] != "" and elementosPedidos[2] != "" and elementosPedidos[3] != "":
             print("O seu pedido foi criado.")
             print("Com o pedido criado, deve informar qual é a data do pedido;")
             elementosPedidos[4] = input()
             while elementosPedidos[4] == "":
                 print("A data do pedido é obrigatória! Deve voltar a escrever a data!")
-                elementosPedidos[4] = input()
-            elementosPedidos[5] = "estado pendente"
+                elementosPedidos[4] = "Data pretendida" + input()
+            elementosPedidos[5] = " Estado pendente"
             estadoPedido[totalPedidos] = elementosPedidos[5]
             print("Obrigado! O seu pedido encontra-se no estado pendente!")
-            pedidos[totalPedidos] = elementosPedidos[0] + ";" + elementosPedidos[1] + ";" + elementosPedidos[2] + ";" + elementosPedidos[3] + ";" + elementosPedidos[4] + ";" + elementosPedidos[5]
-        else: #caso algum dos dados obrigatórios não seja preenchido
+            pedidos[totalPedidos] = elementosPedidos[0] + ";" + elementosPedidos[1] + ";" + elementosPedidos[2] + ";" + elementosPedidos[3] + ";" + elementosPedidos[6] + ";" + elementosPedidos[4] + ";" + elementosPedidos[5]
+        else:
             print("O seu pedido não foi criado. Algum dos dados obrigatórios não foi corretamente preenchido, com isso, deve recomeçar o seu novo pedido.")
             pedidos[totalPedidos] = ""
 
@@ -81,7 +110,7 @@ def gestaoPedidos(): #Função principal de gestão de pedidos
     nome = [""] * (10)
     estadoPedido = [""] * (10)
     pedidos = [""] * (10)
-    elementosPedidos = [""] * (6)
+    elementosPedidos = [""] * (7)
 
     totalPedidos = 0
     print("Para começar indique o seu o nome:") #Guardar o nome do utilizador
