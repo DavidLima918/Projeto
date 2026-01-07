@@ -9,6 +9,7 @@ productNames = [" Aço Carbono", " Alumínio", "Ferro", " PVC", " Polietileno", 
 pedidos = [""] * (10)  # Adicionado como global
 totalPedidos = 0  # Adicionado como global
 estadoPedido = [""] * (10)  # Adicionado como global, se necessário para outras funções
+encomendaTotal = [""] * (11)
 
 
 with open("encomenda.csv", mode="w", newline="", encoding="utf-8") as file:
@@ -361,7 +362,7 @@ diciCat(cat)
 zerarProdutos(produtos)
 produtosBase(produtos, produto)
 
-def gestaoEncomendas(): #Função principal de gestão de encomendas
+def gestaoEncomendas(encomendaTotal): #Função principal de gestão de encomendas
     def adicionarMorada(c, carrinhos): #Função de adicionar morada ao carrinho
         print("Por fim digite a morada: ")
         morada = input()
@@ -519,7 +520,6 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
     carrinhos = [""] * (11)
     zonas = [""] * (11)
     carrinho = [""] * (2)
-    encomendaTotal = [""] * (11)
     estafetas = [""] * (11)
     aprov = [""] * (11)
 
@@ -554,7 +554,7 @@ def gestaoEncomendas(): #Função principal de gestão de encomendas
             if encomendaTotal[j] == "" or encomendaTotal[j] is None:
                 continue
 
-def estafeta():
+def estafeta(encomendasTotal):
     def atualizarEstado(n, estado, estadoEncomenda, tempIE, tempFE):
         estadosEncomendas()
         while True:    #This simulates a Do Loop
@@ -604,10 +604,10 @@ def estafeta():
     def estadosEncomendas():
         print("Indique o estado da encomenda" + chr(13) + "1 - Em Recolha" + chr(13) + "2 - Em Distribuição" + chr(13) + "3 - Entregue")
 
-    def listaEncomendas(encomendas, numEncomendas):
+    def listaEncomendas(encomendasTotal, numEncomendas):
         print("Lista de Encomendas")
-        for i in range(1, numEncomendas + 1, 1):
-            print(encomendas[i - 1])
+        for i in range(0, numEncomendas):
+            print(encomendasTotal[i])
 
     def menuEntregas():
         print("Menu Entregas" + chr(13) + "1 - Atualizar o estado da encomenda" + chr(13) + "2 - Reportar Anomalias" + chr(13) + "3 - Registar Localização" + chr(13) + "4 - Sair")
@@ -754,10 +754,10 @@ while True:
                                 alterarDados(produtos, numProdutos, produto, cat)
             else:
                 if opcao == 2:
-                    gestaoEncomendas()
+                    gestaoEncomendas(encomendaTotal)
                 else:
                     if opcao == 3:
-                        estafeta()
+                        estafeta(encomendaTotal)
             if opcao == 6: break
     else:
         if Username == "exit" or Password == "exit": break
