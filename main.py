@@ -439,8 +439,34 @@ def gestaoEncomendas(encomendaTotal): #Função principal de gestão de encomend
     def criarCarrinho(carrinho, carrinhos, c): #Função de criação do carrinho
         lista = 0
         while True:    #This simulates a Do Loop para adicionar produtos ao carrinho
-            print("Qual o produto que sejá adquirir??")
-            carrinho[0] = input()
+            print("Indique o produto que pretende encomendar:" + chr(13) + "1 - Aço Carbono" + chr(13) + "2 - Alumínio" + chr(13) + "3 - Ferro" + chr(13) + "4 - PVC" + chr(13) + "5 - Polietileno" + chr(13) + "6 - Polipropileno" + chr(13) + "7 - Tijolo" + chr(13) + "8 - Telha" + chr(13) + "9 - Azulejo")
+            a = int(input())
+            if a == 1:
+                carrinho[0] = " Aço Carbono" 
+            else:   
+                if a == 2:
+                    carrinho[0] = " Alumínio"
+                else:
+                    if a == 3:
+                        carrinho[0] = "Ferro"
+                    else:
+                        if a == 4:
+                            carrinho[0] = " PVC"
+                        else:
+                            if a == 5:
+                                carrinho[0] = " Polietileno"
+                            else:
+                                if a == 6:
+                                    carrinho[0] = " Polipropileno"
+                                else:
+                                    if a == 7:
+                                        carrinho[0] = " Tijolo"
+                                    else:
+                                        if a == 8:
+                                            carrinho[0] = " Telha"
+                                        else:
+                                            if a == 9:
+                                                carrinho[0] = " Azulejo"
             print("Agora qual a quantidade??")
             carrinho[1] = input()
             carrinhos[c] = carrinho[0] + " " + carrinho[1]
@@ -546,7 +572,6 @@ def gestaoEncomendas(encomendaTotal): #Função principal de gestão de encomend
                         if menu == 5:
                                 criarCarrinho(carrinho, carrinhos, c)
                                 encomendas(carrinhos, c, encomendaTotal, i)
-                                i = i + 1
         if menu == 6: break
     # grava no CSV (colunas separadas por ';')
     with open("encomenda.csv", mode="a", newline="", encoding="utf-8") as file:
