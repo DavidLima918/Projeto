@@ -17,6 +17,10 @@ with open("encomenda.csv", mode="w", newline="", encoding="utf-8") as file:
     # escreve o cabeçalho como UMA linha (writerow), não várias linhas
     writer.writerow(["nome/quantidade", "morada"])
 
+with open("anomalias.csv", mode="w", newline="", encoding="utf-8") as file:
+    writer = csv.writer(file, delimiter=';')
+    writer.writerow(["encomenda", "motivo", "estado"])
+
 def chr(n):
     return "\n"
 
@@ -710,6 +714,9 @@ def estafeta(encomendasTotal):
         print("Reporte a anomalia")
         anomalia = input()
         estadoEncomenda[n] = estado[5]
+        with open("anomalias.csv", mode="a", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file, delimiter=';')
+            writer.writerow([encomendas[n], anomalia, estadoEncomenda[n]])
 
     def zerarEstadoEncomenda(estadoEncomenda):
         for i in range(0, 99 + 1, 1):
